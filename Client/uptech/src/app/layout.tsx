@@ -1,3 +1,6 @@
+import "sanitize.css";
+import "sanitize.css/forms.css";
+import "sanitize.css/typography.css";
 import "./_styles/styles.scss";
 
 import type { Metadata } from "next";

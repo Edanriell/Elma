@@ -10,7 +10,8 @@ type MainLayoutProps = {
 const generalSans = localFont({
 	src: "../../../../../public/fonts/GeneralSans-Variable.ttf",
 	variable: "--font-general-sans",
-	display: "swap"
+	display: "swap",
+	weight: "200 700"
 });
 
 export const MainLayout: FC<MainLayoutProps> = ({ children }) => {

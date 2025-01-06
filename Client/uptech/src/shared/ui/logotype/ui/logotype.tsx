@@ -1,35 +1,63 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import Image from "next/image";
 
-type LogotypeProps = {
-	colorScheme?: "light" | "dark";
-	size?: "small" | "medium";
+const logotypeVariants = {
+	dark: {
+		small: () => (
+			<Image
+				src="/images/vector/logotype-dark.svg"
+				width={115}
+				height={28}
+				alt="Uptech company logotype"
+				className="w-auto h-auto"
+				priority={true}
+			/>
+		),
+		medium: () => (
+			<Image
+				src="/images/vector/logotype-dark.svg"
+				width={132}
+				height={32}
+				alt="Uptech company logotype"
+				className="w-auto h-auto"
+				priority={true}
+			/>
+		)
+	},
+	light: {
+		small: () => (
+			<Image
+				src="/images/vector/logotype-light.svg"
+				width={115}
+				height={28}
+				alt="Uptech company logotype"
+				className="w-auto h-auto"
+				priority={true}
+			/>
+		),
+		medium: () => (
+			<Image
+				src="/images/vector/logotype-light.svg"
+				width={132}
+				height={32}
+				alt="Uptech company logotype"
+				className="w-auto h-auto"
+				priority={true}
+			/>
+		)
+	}
 };
 
-export const Logotype: FC<LogotypeProps> = ({ colorScheme = "dark", size = "small" }) => {
-	switch (colorScheme) {
-		case "dark": {
-			return (
-				<Image
-					src="/images/vector/logotype-dark.svg"
-					width={size === "small" ? 115 : 132}
-					height={size === "small" ? 28 : 32}
-					alt="Uptech company logotype"
-				/>
-			);
-		}
-		case "light": {
-			return (
-				<Image
-					src="/images/vector/logotype-light.svg"
-					width={size === "small" ? 115 : 132}
-					height={size === "small" ? 28 : 32}
-					alt="Uptech company logotype"
-				/>
-			);
-		}
-		default: {
-			return null;
-		}
-	}
+type LogotypeColors = keyof typeof logotypeVariants;
+
+type LogotypeSizes = keyof (typeof logotypeVariants)[LogotypeColors];
+
+type LogotypeProps = {
+	size: LogotypeSizes;
+	color: LogotypeColors;
+};
+
+export const Logotype: FC<LogotypeProps> = ({ size, color }) => {
+	const Logotype = logotypeVariants[color][size];
+	return <Fragment>{Logotype()}</Fragment>;
 };
