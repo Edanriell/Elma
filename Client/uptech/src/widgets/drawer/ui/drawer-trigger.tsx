@@ -1,12 +1,12 @@
-import React, { FC, Fragment, MouseEvent, ReactNode } from "react";
+import React, { type FC, Fragment, type MouseEvent, type ReactNode } from "react";
 
 import { useDrawerStore } from "../lib";
 
-type TriggerProps = {
+type DrawerTriggerProps = {
 	children: ReactNode;
 };
 
-export const Trigger: FC<TriggerProps> = ({ children }) => {
+export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 	const { openDrawer } = useDrawerStore();
 
 	// Validates that children have a valid `data-content-id` attribute
@@ -54,17 +54,20 @@ export const Trigger: FC<TriggerProps> = ({ children }) => {
 					onClick: (
 						event: MouseEvent<HTMLButtonElement | HTMLDivElement | HTMLAnchorElement>
 					) => {
-						existingOnClick?.(event); // Call the original onClick if it exists
+						// Call the original onClick if it exists
+						existingOnClick?.(event);
 						handleTriggerClick(contentId);
 					}
-				} as Partial<typeof child.props>); // Explicitly cast new props to match the original type
+				} as Partial<typeof child.props>);
+				// Explicitly cast new props to match the original type
 			}
 
 			// Recursively process nested children
 			if (child.props?.children) {
 				return React.cloneElement(child, {
 					children: renderChildren(child.props.children)
-				} as Partial<typeof child.props>); // Explicitly cast new props to match the original type
+				} as Partial<typeof child.props>);
+				// Explicitly cast new props to match the original type
 			}
 
 			return child;

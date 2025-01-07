@@ -1,15 +1,16 @@
-import { type ReactNode, useRef, useState } from "react";
+import { type ReactElement, type ReactNode, useRef, useState } from "react";
 
 import { DrawerContext } from "./drawer-context";
 
 export const DrawerProvider = ({ children }: { children: ReactNode }) => {
 	const [drawers, setDrawers] = useState<Array<{ id: string; content: ReactNode }> | []>([]);
-	const drawersContent = useRef<Array<ReactNode> | []>([]); // Use useRef for static content
 	const [config, setConfig] = useState({
 		maxDrawers: 3,
 		drawerWidth: "320px",
 		drawerHeight: "75%"
 	});
+
+	const drawersContent = useRef<Array<ReactNode> | []>([]); // Use useRef for static content
 
 	const openDrawer = (contentId: string) => {
 		if (drawers.some((drawer) => drawer.id === contentId)) {
@@ -18,7 +19,7 @@ export const DrawerProvider = ({ children }: { children: ReactNode }) => {
 		}
 
 		const targetContent = drawersContent.current.find(
-			(content) => content?.props["data-content-id"] === contentId
+			(content) => (content as ReactElement).props["data-content-id"] === contentId
 		);
 
 		if (!targetContent) {

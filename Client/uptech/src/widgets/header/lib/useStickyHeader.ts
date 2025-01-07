@@ -65,7 +65,7 @@ export const useStickyHeader = () => {
 		// console.log(delta.current);
 		// console.log(currentY);
 
-		// Trigger animations based on scroll direction and delta
+		// DrawerTrigger animations based on scroll direction and delta
 		if (delta.current >= 10 && currentY > 200) {
 			setStickyHeaderState("hidden");
 

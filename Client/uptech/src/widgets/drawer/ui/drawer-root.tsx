@@ -1,15 +1,18 @@
-import { FC, useLayoutEffect } from "react";
+import { type FC, useLayoutEffect } from "react";
 import { AnimatePresence } from "motion/react";
 
 import { useDrawerStore } from "../lib";
-import { InteractiveDrawer } from "@widgets/drawer/ui/interactive";
 
-export const Root: FC = () => {
+import { DrawerInstance } from "./drawer-instance";
+
+export const DrawerRoot: FC = () => {
 	const { drawers } = useDrawerStore();
 
 	useLayoutEffect(() => {
 		const drawerRoot = document.getElementById("drawer-root");
 
+		// TODO
+		// Needs more testing
 		// Create drawer root only if it doesn't exist
 		if (!drawerRoot) {
 			const rootElement = document.createElement("div");
@@ -23,9 +26,9 @@ export const Root: FC = () => {
 		<AnimatePresence>
 			{drawers.length > 0 &&
 				drawers.map(({ id, content }, index) => (
-					<InteractiveDrawer key={id} id={id} index={index}>
+					<DrawerInstance key={id} id={id} index={index}>
 						{content}
-					</InteractiveDrawer>
+					</DrawerInstance>
 				))}
 		</AnimatePresence>
 	);

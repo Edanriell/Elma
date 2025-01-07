@@ -1,11 +1,11 @@
-import React, { FC, Fragment, ReactElement, useLayoutEffect } from "react";
+import React, { type FC, Fragment, type ReactElement, useLayoutEffect } from "react";
 
 import { DrawerProvider } from "../model";
 import { useDrawerStore } from "../lib";
 
-import { Root } from "./root";
-import { Trigger } from "./trigger";
-import { Content } from "./content";
+import { DrawerRoot } from "./drawer-root";
+import { DrawerTrigger } from "./drawer-trigger";
+import { DrawerContent } from "./drawer-content";
 
 // TODO
 // Also fix issue with z-index when sorting !
@@ -14,15 +14,15 @@ import { Content } from "./content";
 
 type DrawerComponents = {
 	Provider: typeof DrawerProvider;
-	Trigger: typeof Trigger;
-	Content: typeof Content;
+	Trigger: typeof DrawerTrigger;
+	Content: typeof DrawerContent;
 };
 
 type DrawerProps = {
 	max?: number;
 	width?: string;
 	height?: string;
-	children: ReactElement<typeof Content>;
+	children: ReactElement<typeof DrawerContent>;
 };
 
 type Drawer = FC<DrawerProps> & DrawerComponents;
@@ -39,7 +39,7 @@ export const Drawer: Drawer = ({ max, width, height, children }) => {
 	}, []);
 
 	React.Children.forEach(children, (child) => {
-		if (!(React.isValidElement(child) && child.type === Content)) {
+		if (!(React.isValidElement(child) && child.type === DrawerContent)) {
 			throw new Error(
 				`Invalid child component: ${child.type}. Expected child component Drawer.Content`
 			);
@@ -49,11 +49,11 @@ export const Drawer: Drawer = ({ max, width, height, children }) => {
 	return (
 		<Fragment>
 			{children}
-			<Root />
+			<DrawerRoot />
 		</Fragment>
 	);
 };
 
 Drawer.Provider = DrawerProvider;
-Drawer.Trigger = Trigger;
-Drawer.Content = Content;
+Drawer.Trigger = DrawerTrigger;
+Drawer.Content = DrawerContent;

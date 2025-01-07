@@ -1,18 +1,16 @@
-import { FC, ReactNode, useEffect } from "react";
+import { type FC, type ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
 
 import { useDrawerStore } from "../lib";
 
-type InteractiveDrawerProps = {
+type DrawerInstanceProps = {
 	id: string;
 	index: number;
 	children: ReactNode;
 };
 
-// take width from store 380
-
-export const InteractiveDrawer: FC<InteractiveDrawerProps> = ({ id, index, children }) => {
+export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, children }) => {
 	const { drawers, config, closeDrawer, reorderDrawer } = useDrawerStore();
 
 	useEffect(() => {
@@ -43,7 +41,7 @@ export const InteractiveDrawer: FC<InteractiveDrawerProps> = ({ id, index, child
 	const LAST_DRAWER_OFFSET_Y = 30 * config.maxDrawers;
 
 	const drawerAnimationVariants = {
-		initial: { opacity: 0, x: 320, y: 0, scale: 1, filter: "blur(5rem)" },
+		initial: { opacity: 0, x: config.drawerWidth, y: 0, scale: 1, filter: "blur(5rem)" },
 		default: {
 			opacity: 1,
 			x: DRAWER_OFFSET_X,
@@ -58,10 +56,14 @@ export const InteractiveDrawer: FC<InteractiveDrawerProps> = ({ id, index, child
 			scale: LAST_DRAWER_SCALE,
 			filter: "blur(5rem)"
 		},
-		exit: { opacity: 0, x: 320, y: DRAWER_OFFSET_Y, DRAWER_SCALE, filter: "blur(5rem)" }
+		exit: {
+			opacity: 0,
+			x: config.drawerWidth,
+			y: DRAWER_OFFSET_Y,
+			DRAWER_SCALE,
+			filter: "blur(5rem)"
+		}
 	};
-
-	const drawerTransitionOptions = { type: "spring", duration: 5, bounce: 0 };
 
 	const handleDrawerDragEnd = (_, info) => {
 		const { offset, velocity } = info;
@@ -92,7 +94,7 @@ export const InteractiveDrawer: FC<InteractiveDrawerProps> = ({ id, index, child
 			dragSnapToOrigin
 			animate={IS_DRAWER_LAST_IN_STACK ? "last" : "default"}
 			exit={"exit"}
-			transition={drawerTransitionOptions}
+			transition={{ type: "spring", duration: 5, bounce: 0 }}
 			style={{
 				position: "fixed",
 				top: "19vh",

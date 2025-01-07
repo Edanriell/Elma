@@ -21,4 +21,4 @@ export type DrawerStore = {
 	setConfig: (config: DrawerConfig) => void;
 };
 
-export const DrawerContext = createContext<DrawerStore | undefined>(undefined);
+export const DrawerContext = createContext<DrawerStore | null>(null);

@@ -1,12 +1,12 @@
-import React, { FC, ReactNode, useLayoutEffect } from "react";
+import React, { type FC, type ReactNode, useLayoutEffect } from "react";
 
 import { useDrawerStore } from "../lib";
 
-type ContentProps = {
+type DrawerContentProps = {
 	children: ReactNode;
 };
 
-export const Content: FC<ContentProps> = ({ children }) => {
+export const DrawerContent: FC<DrawerContentProps> = ({ children }) => {
 	const { setDrawersContent } = useDrawerStore();
 
 	useLayoutEffect(() => {
