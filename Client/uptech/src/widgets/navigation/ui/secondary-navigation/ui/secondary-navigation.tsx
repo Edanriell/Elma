@@ -1,4 +1,4 @@
-import React, { FC, JSX, ReactElement } from "react";
+import React, { type FC, type JSX, type ReactElement } from "react";
 
 import { SecondaryNavigationProvider } from "../model";
 
@@ -18,6 +18,7 @@ type SecondaryNavigationComponents = {
 };
 
 type SecondaryNavigationProps = {
+	className?: string;
 	orientation?: "horizontal" | "vertical";
 	children: ReactElement<typeof NavigationLinksList>;
 };
@@ -25,6 +26,7 @@ type SecondaryNavigationProps = {
 type SecondaryNavigation = FC<SecondaryNavigationProps> & SecondaryNavigationComponents;
 
 export const SecondaryNavigation: SecondaryNavigation = ({
+	className = "",
 	orientation = "horizontal",
 	children
 }) => {
@@ -38,7 +40,9 @@ export const SecondaryNavigation: SecondaryNavigation = ({
 
 	return (
 		<SecondaryNavigationProvider>
-			<SecondaryNavigationRoot orientation={orientation}>{children}</SecondaryNavigationRoot>
+			<SecondaryNavigationRoot className={className} orientation={orientation}>
+				{children}
+			</SecondaryNavigationRoot>
 		</SecondaryNavigationProvider>
 	);
 };

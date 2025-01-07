@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, FC, JSX } from "react";
+import { type ComponentPropsWithoutRef, type FC, type JSX } from "react";
 import { motion } from "motion/react";
 
 type NavigationLinkProps = {

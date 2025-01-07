@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from "react";
+import React, { type FC, type ReactElement } from "react";
 import clsx from "clsx";
 
 import { NavigationLink } from "./navigation-link";

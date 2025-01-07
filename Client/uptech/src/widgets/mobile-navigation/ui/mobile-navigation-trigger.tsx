@@ -1,6 +1,4 @@
-"use client";
-
-import { ComponentPropsWithoutRef, FC } from "react";
+import { type ComponentPropsWithoutRef, type FC } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
 

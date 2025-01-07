@@ -68,7 +68,7 @@ export const StaticHeader: FC = () => {
 				</PrimaryNavigation.NavigationLinksList>
 			</PrimaryNavigation>
 			<Drawer.Trigger>
-				<SecondaryNavigation orientation="horizontal">
+				<SecondaryNavigation className="hidden tablet:flex" orientation="horizontal">
 					<SecondaryNavigation.NavigationLinksList>
 						{Array.from(staticHeaderSecondaryNavigationLinks.values()).map(
 							({ name, Icon, contentId }, index) => (

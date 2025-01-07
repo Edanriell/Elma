@@ -98,7 +98,7 @@ export const StickyHeader: FC = () => {
 				</PrimaryNavigation.NavigationLinksList>
 			</PrimaryNavigation>
 			<Drawer.Trigger>
-				<SecondaryNavigation orientation="horizontal">
+				<SecondaryNavigation className="hidden tablet:flex" orientation="horizontal">
 					<SecondaryNavigation.NavigationLinksList>
 						{Array.from(stickyHeaderSecondaryNavigationLinks.values()).map(
 							({ name, Icon, contentId }, index) => (

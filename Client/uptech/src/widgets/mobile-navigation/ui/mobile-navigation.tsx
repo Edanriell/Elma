@@ -124,7 +124,10 @@ export const MobileNavigation: FC<PrimaryMobileNavigationProps> = ({ className }
 			</div>
 			<div className="rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] flex-[0]">
 				<Drawer.Trigger>
-					<SecondaryNavigation orientation="vertical">
+					<SecondaryNavigation
+						className="flex flex-col items-center justify-center tablet:hidden"
+						orientation="vertical"
+					>
 						<SecondaryNavigation.NavigationLinksList>
 							{Array.from(mobileNavigationSecondaryNavigationLinks.values()).map(
 								({ name, Icon, contentId }, index) => (
@@ -143,9 +146,3 @@ export const MobileNavigation: FC<PrimaryMobileNavigationProps> = ({ className }
 		</motion.div>
 	);
 };
-
-// SecondaryNav
-// Primary Nav
-
-// Should  accept className as props
-// to be able to fix shit
