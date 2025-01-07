@@ -11,7 +11,7 @@ import {
 	SecondaryNavigation,
 	type SecondaryNavigationLink
 } from "@widgets/navigation/ui/secondary-navigation/ui";
-import { MobileNavigationTrigger } from "@widgets/mobile-navigation/ui";
+import { MobileNavigation } from "@widgets/mobile-navigation/ui";
 
 import { Logotype } from "@shared/ui/logotype/ui";
 import { Icon } from "@shared/ui/icon/ui";
@@ -113,7 +113,7 @@ export const StickyHeader: FC = () => {
 					</SecondaryNavigation.NavigationLinksList>
 				</SecondaryNavigation>
 			</Drawer.Trigger>
-			<MobileNavigationTrigger className="absolute right-[24rem] top-[50%] translate-y-[-50%] tablet:right-[32rem]" />
+			<MobileNavigation.Trigger className="absolute right-[24rem] top-[50%] translate-y-[-50%] tablet:right-[32rem]" />
 		</motion.header>
 	);
 };

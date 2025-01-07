@@ -16,10 +16,18 @@ import { useHeaderStore } from "@widgets/header/model";
 
 import { Icon } from "@shared/ui/icon/ui";
 
-type PrimaryMobileNavigationProps = {
+import { MobileNavigationTrigger } from "./mobile-navigation-trigger";
+
+type MobileNavigationComponents = {
+	Trigger: typeof MobileNavigationTrigger;
+};
+
+type MobileNavigationProps = {
 	className?: string;
 } & ComponentPropsWithoutRef<"nav"> &
 	MotionProps;
+
+type MobileNavigation = FC<MobileNavigationProps> & MobileNavigationComponents;
 
 const mobileNavigationPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
@@ -60,39 +68,36 @@ const mobileNavigationAnimationVariants = {
 	initial: {
 		visibility: "hidden",
 		opacity: 0,
-		y: 10,
-		scale: 0.975,
-		filter: "blur(4px)"
+		y: 20,
+		filter: "blur(5rem)"
 	},
 	visible: {
 		visibility: "visible",
 		opacity: 1,
 		y: 0,
-		scale: 1,
-		filter: "blur(0px)",
+		filter: "blur(0rem)",
 		transition: {
 			delay: 0,
 			type: "spring",
 			bounce: 0,
-			duration: 0.5
+			duration: 0.45
 		}
 	},
 	hidden: {
 		visibility: "hidden",
 		opacity: 0,
-		y: 10,
-		scale: 0.975,
-		filter: "blur(4px)",
+		y: 20,
+		filter: "blur(5rem)",
 		transition: {
-			delay: 0.3,
+			delay: 0,
 			type: "spring",
 			bounce: 0,
-			duration: 0.45
+			duration: 0.4
 		}
 	}
 };
 
-export const MobileNavigation: FC<PrimaryMobileNavigationProps> = ({ className }) => {
+export const MobileNavigation: MobileNavigation = ({ className }) => {
 	const mobileNavigationState = useHeaderStore(
 		({ mobileNavigationState }) => mobileNavigationState
 	);
@@ -146,3 +151,5 @@ export const MobileNavigation: FC<PrimaryMobileNavigationProps> = ({ className }
 		</motion.div>
 	);
 };
+
+MobileNavigation.Trigger = MobileNavigationTrigger;

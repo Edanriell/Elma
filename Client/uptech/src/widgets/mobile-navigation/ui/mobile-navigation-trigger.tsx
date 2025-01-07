@@ -8,28 +8,26 @@ type MobileNavigationTriggerProps = {
 	className?: string;
 } & ComponentPropsWithoutRef<"button">;
 
-// TODO REFACTOR TO PATTERN MobileNavigation.Trigger
-
 const mobileNavigationTriggerBarAnimationVariants = {
 	opened: {
 		bar1: {
 			top: "50%",
 			y: "-50%",
 			rotate: 135,
-			transition: { type: "spring", bounce: 0, duration: 0.5 }
+			transition: { type: "spring", bounce: 0, duration: 0.45 }
 		},
 		bar2: {
 			opacity: 0,
 			top: "50%",
 			y: "-70%",
 			x: -20,
-			transition: { type: "spring", bounce: 0, duration: 0.5 }
+			transition: { type: "spring", bounce: 0, duration: 0.45 }
 		},
 		bar3: {
 			bottom: "50%",
 			y: "50%",
 			rotate: -135,
-			transition: { type: "spring", bounce: 0, duration: 0.5 }
+			transition: { type: "spring", bounce: 0, duration: 0.45 }
 		}
 	},
 	closed: {
@@ -37,20 +35,20 @@ const mobileNavigationTriggerBarAnimationVariants = {
 			top: "0%",
 			y: 0,
 			rotate: 0,
-			transition: { type: "spring", bounce: 0, duration: 0.45 }
+			transition: { type: "spring", bounce: 0, duration: 0.4 }
 		},
 		bar2: {
 			opacity: 1,
 			top: "50%",
 			y: "-70%",
 			x: 0,
-			transition: { type: "spring", bounce: 0, duration: 0.45 }
+			transition: { type: "spring", bounce: 0, duration: 0.4 }
 		},
 		bar3: {
 			bottom: "0%",
 			y: "-50%",
 			rotate: 0,
-			transition: { type: "spring", bounce: 0, duration: 0.45 }
+			transition: { type: "spring", bounce: 0, duration: 0.4 }
 		}
 	}
 };
