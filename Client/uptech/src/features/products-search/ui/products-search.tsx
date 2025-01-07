@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef, FC, useEffect, useRef } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, MotionProps } from "framer-motion";
+import { AnimatePresence, motion, MotionProps } from "motion/react";
 
 import { useWindowSize } from "@shared/lib/hooks";
 

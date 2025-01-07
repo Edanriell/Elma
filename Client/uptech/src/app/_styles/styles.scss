@@ -1,14 +1,10 @@
+@use "./variables";
+@use "./fonts";
+@use "./reset";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import "variables";
-@import "./fonts";
-@import "./reset";
-
-@import "sanitize.css";
-@import "sanitize.css/forms.css";
-@import "sanitize.css/typography.css";
 
 html {
 	font-size: 6.25%;
@@ -21,7 +17,7 @@ body {
 	position: relative;
 	font-size: 16em;
 	text-rendering: geometricPrecision;
-	min-width: 374rem;
+	min-width: 390rem;
 
 	background-color: slategray;
 	height: 200vh;

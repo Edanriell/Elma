@@ -1,8 +1,14 @@
-import { FC, Fragment } from "react";
+import { type FC, Fragment } from "react";
 
-const icons = {
+const iconVariants = {
 	search: () => (
-		<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg
+			width="21"
+			height="21"
+			viewBox="0 0 21 21"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
 			<mask
 				id="mask0_34_447"
 				style={{ maskType: "luminance" }}
@@ -54,7 +60,13 @@ const icons = {
 		</svg>
 	),
 	profile: () => (
-		<svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+		<svg
+			width="16"
+			height="20"
+			viewBox="0 0 16 20"
+			fill="none"
+			xmlns="http://www.w3.org/2000/svg"
+		>
 			<path
 				fillRule="evenodd"
 				clipRule="evenodd"
@@ -121,34 +133,34 @@ const icons = {
 					fill="#1F1F1F"
 				/>
 			</svg>
-			<div className="absolute top-[-2rem] right-[-2rem]">
-				<svg
-					width="12"
-					height="12"
-					viewBox="0 0 12 12"
-					fill="none"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<circle cx="6.0001" cy="5.99993" r="5.99993" fill="#EF233C" />
-				</svg>
-				{count > 0 && (
+			{count > 0 && (
+				<div className="absolute top-[-2rem] right-[-2rem]">
+					<svg
+						width="12"
+						height="12"
+						viewBox="0 0 12 12"
+						fill="none"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<circle cx="6.0001" cy="5.99993" r="5.99993" fill="#EF233C" />
+					</svg>
 					<p className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] font-bold text-[8rem] leading-[100%] text-white-50">
 						{count}
 					</p>
-				)}
-			</div>
+				</div>
+			)}
 		</div>
 	)
 };
 
-type IconType = keyof typeof icons;
+type IconType = keyof typeof iconVariants;
 
 type IconProps = {
 	type: IconType;
-	count?: number;
+	productCount?: number;
 };
 
-export const Icon: FC<IconProps> = ({ type, count }) => {
-	const Icon = icons[type];
-	return <Fragment>{Icon(count)}</Fragment>;
+export const Icon: FC<IconProps> = ({ type, productCount }) => {
+	const Icon = iconVariants[type];
+	return <Fragment>{Icon(productCount)}</Fragment>;
 };

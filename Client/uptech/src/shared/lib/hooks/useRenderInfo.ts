@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 export const useRenderInfo = (name = "Unknown") => {
 	const count = useRef(0);
-	const lastRender = useRef<number>();
+	const lastRender = useRef<number | undefined>(undefined);
 	const now = Date.now();
 
 	count.current++;

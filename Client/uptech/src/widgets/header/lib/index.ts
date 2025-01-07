@@ -1,1 +1,1 @@
-export * from "./useHeaderContext";
+export * from "./useStickyHeader";

@@ -1,23 +1,26 @@
 "use client";
 
-import { FC } from "react";
-import dynamic from "next/dynamic";
+import { type FC } from "react";
 
+import { Drawer } from "@widgets/drawer/ui";
 import { MobileNavigation } from "@widgets/mobile-navigation/ui";
-import { StaticHeader } from "@widgets/header/ui/static-header";
 
-import { HeaderProvider } from "../model";
-
-const DynamicHeader = dynamic(() => import("./dynamic-header"), {
-	ssr: false
-});
+import { StickyHeader } from "./sticky-header";
+import { StaticHeader } from "./static-header";
 
 export const Header: FC = () => {
 	return (
-		<HeaderProvider>
+		<Drawer.Provider>
 			<StaticHeader />
-			<DynamicHeader />
-			<MobileNavigation classes="fixed top-[80rem] left-0" />
-		</HeaderProvider>
+			<StickyHeader />
+			<MobileNavigation className="fixed top-[80rem] left-0" />
+			<Drawer max={3} width="380rem" height="75%">
+				<Drawer.Content>
+					<div data-content-id="1x">Content 1</div>
+					<div data-content-id="2x">Content 2</div>
+					<div data-content-id="3x">Content 3</div>
+				</Drawer.Content>
+			</Drawer>
+		</Drawer.Provider>
 	);
 };
