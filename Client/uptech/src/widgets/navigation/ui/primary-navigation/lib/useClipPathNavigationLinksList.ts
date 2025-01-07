@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect } from "react";
+import { type MutableRefObject, useEffect } from "react";
 import { useAnimationControls } from "motion/react";
 
 import { calculateClipPath } from "./calculateClipPath";

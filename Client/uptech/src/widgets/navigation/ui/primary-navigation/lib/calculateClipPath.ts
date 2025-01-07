@@ -34,5 +34,6 @@ export const calculateClipPath = ({
 						}px ${Number((clipLeft / container.offsetWidth) * 100).toFixed()}% round 17px)`
 		};
 	}
+
 	return {};
 };

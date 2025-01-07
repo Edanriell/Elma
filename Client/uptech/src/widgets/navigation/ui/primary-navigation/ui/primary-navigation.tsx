@@ -1,14 +1,12 @@
-"use client";
+import React, { type FC, type ReactElement } from "react";
 
-import React, { FC, ReactElement } from "react";
+import { PrimaryNavigationProvider } from "../model";
 
 import { NavigationLinksList } from "./navigation-links-list";
 import { ClipPathNavigationLinksList } from "./clip-path-navigation-links-list";
 import { NavigationLink, type NavigationLinkProps } from "./navigation-link";
 import { ClipPathNavigationLink } from "./clip-path-navigation-link";
 import { PrimaryNavigationRoot } from "./primary-navigation-root";
-
-import { PrimaryNavigationProvider } from "../model";
 
 export type PrimaryNavigationLink = {
 	name: string;
@@ -23,6 +21,7 @@ type PrimaryNavigationComponents = {
 };
 
 type PrimaryNavigationProps = {
+	className?: string;
 	orientation?: "horizontal" | "vertical";
 	children: ReactElement<
 		typeof NavigationLinksList & { children: ReactElement<typeof NavigationLink>[] }
@@ -31,7 +30,11 @@ type PrimaryNavigationProps = {
 
 type PrimaryNavigation = FC<PrimaryNavigationProps> & PrimaryNavigationComponents;
 
-export const PrimaryNavigation: PrimaryNavigation = ({ orientation = "horizontal", children }) => {
+export const PrimaryNavigation: PrimaryNavigation = ({
+	className = "",
+	orientation = "horizontal",
+	children
+}) => {
 	if (!React.isValidElement(children) || children.type !== NavigationLinksList) {
 		throw new Error(`PrimaryNavigation must have exactly one child: NavigationLinksList.`);
 	}
@@ -46,7 +49,7 @@ export const PrimaryNavigation: PrimaryNavigation = ({ orientation = "horizontal
 
 	return (
 		<PrimaryNavigationProvider>
-			<PrimaryNavigationRoot orientation={orientation}>
+			<PrimaryNavigationRoot className={className} orientation={orientation}>
 				{children}
 				<ClipPathNavigationLinksList>{clipPathLinks}</ClipPathNavigationLinksList>
 			</PrimaryNavigationRoot>

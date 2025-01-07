@@ -5,15 +5,17 @@ import clsx from "clsx";
 import { usePrimaryNavigationStore } from "../lib";
 
 type PrimaryNavigationStoreProps = {
+	className: string;
 	orientation: "horizontal" | "vertical";
 	children: ReactNode;
 };
 
 export const PrimaryNavigationRoot: FC<PrimaryNavigationStoreProps> = ({
+	className,
 	orientation,
 	children
 }) => {
-	const { initializeActiveLink, orientationRef } = usePrimaryNavigationStore();
+	const { initializeActiveLink, orientationRef, globalClassesRef } = usePrimaryNavigationStore();
 
 	const pathName = usePathname();
 
@@ -25,6 +27,7 @@ export const PrimaryNavigationRoot: FC<PrimaryNavigationStoreProps> = ({
 
 	useEffect(() => {
 		orientationRef.current = orientation;
+		globalClassesRef.current = className;
 	}, []);
 
 	useEffect(() => {

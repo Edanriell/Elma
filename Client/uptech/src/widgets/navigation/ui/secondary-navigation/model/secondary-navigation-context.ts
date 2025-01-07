@@ -4,6 +4,4 @@ export type SecondaryNavigationStore = {
 	orientationRef: MutableRefObject<"horizontal" | "vertical" | null>;
 };
 
-export const SecondaryNavigationContext = createContext<SecondaryNavigationStore | undefined>(
-	undefined
-);
+export const SecondaryNavigationContext = createContext<SecondaryNavigationStore | null>(null);

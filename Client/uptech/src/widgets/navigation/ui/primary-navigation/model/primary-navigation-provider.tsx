@@ -1,10 +1,11 @@
-import { ReactNode, useRef, useState } from "react";
+import { type ReactNode, useRef, useState } from "react";
 
 import { PrimaryNavigationContext } from "./primary-navigation-context";
 
 export const PrimaryNavigationProvider = ({ children }: { children: ReactNode }) => {
 	const [activeLink, setActiveLinkState] = useState<string>("");
 
+	const globalClassesRef = useRef<string>(null);
 	const orientationRef = useRef<"horizontal" | "vertical">(null);
 	const containerRef = useRef<HTMLDivElement | null>(null);
 	const activeLinkElementRef = useRef<HTMLAnchorElement | null>(null);
@@ -29,6 +30,7 @@ export const PrimaryNavigationProvider = ({ children }: { children: ReactNode })
 	return (
 		<PrimaryNavigationContext.Provider
 			value={{
+				globalClassesRef,
 				orientationRef,
 				containerRef,
 				activeLinkElementRef,

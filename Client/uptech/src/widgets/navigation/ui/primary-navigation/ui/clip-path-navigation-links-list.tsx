@@ -1,20 +1,20 @@
-import React, { FC, ReactElement, useRef } from "react";
+import React, { type FC, type ReactElement, useRef } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
 
-import { ClipPathNavigationLink } from "./clip-path-navigation-link";
-
 import { useClipPathNavigationLinksList, usePrimaryNavigationStore } from "../lib";
+
+import { ClipPathNavigationLink } from "./clip-path-navigation-link";
 
 type ClipPathNavigationLinksListProps = {
 	children: ReactElement<typeof ClipPathNavigationLink>[];
 };
 
 export const ClipPathNavigationLinksList: FC<ClipPathNavigationLinksListProps> = ({ children }) => {
-	const containerRef = useRef(null);
-	const { orientationRef } = usePrimaryNavigationStore();
+	const { orientationRef, globalClassesRef, activeLink, activeLinkElementRef } =
+		usePrimaryNavigationStore();
 
-	const { activeLink, activeLinkElementRef } = usePrimaryNavigationStore();
+	const containerRef = useRef(null);
 
 	const { animationControls } = useClipPathNavigationLinksList(
 		containerRef,
@@ -32,10 +32,10 @@ export const ClipPathNavigationLinksList: FC<ClipPathNavigationLinksListProps> =
 	});
 
 	const clipPathNavigationLinksListClasses = clsx(
-		"relative flex w-full justify-center bg-alizarin-crimson-600",
+		"relative flex w-full justify-center bg-alizarin-crimson-600" + globalClassesRef!.current,
 		{
-			"flex-col": orientationRef.current === "vertical",
-			"flex-row": orientationRef.current === "horizontal"
+			"flex-col": orientationRef!.current === "vertical",
+			"flex-row": orientationRef!.current === "horizontal"
 		}
 	);
 

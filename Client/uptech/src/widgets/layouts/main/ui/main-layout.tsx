@@ -14,6 +14,10 @@ const generalSans = localFont({
 	weight: "200 700"
 });
 
+// FIX FONT
+// FIX METADADA
+// PILL OUT TO ROOT LAYOUT CREATE COMPONENT
+
 export const MainLayout: FC<MainLayoutProps> = ({ children }) => {
 	return (
 		<html lang="en" className={`${generalSans.variable}`}>
