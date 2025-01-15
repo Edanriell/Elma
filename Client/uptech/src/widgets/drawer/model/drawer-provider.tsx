@@ -1,9 +1,13 @@
 import { type ReactElement, type ReactNode, useRef, useState } from "react";
 
-import { DrawerContext } from "./drawer-context";
+import { type Drawer, DrawerContext } from "./drawer-context";
 
-export const DrawerProvider = ({ children }: { children: ReactNode }) => {
-	const [drawers, setDrawers] = useState<Array<{ id: string; content: ReactNode }> | []>([]);
+type DrawerProviderProps = {
+	children: ReactNode;
+};
+
+export const DrawerProvider = ({ children }: DrawerProviderProps) => {
+	const [drawers, setDrawers] = useState<Array<Drawer> | []>([]);
 	const [config, setConfig] = useState({
 		maxDrawers: 3,
 		drawerWidth: "320px",

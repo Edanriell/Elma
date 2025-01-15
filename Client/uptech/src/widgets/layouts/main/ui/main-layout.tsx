@@ -14,6 +14,9 @@ const generalSans = localFont({
 	weight: "200 700"
 });
 
+// layout
+// RootLayout
+// TODO
 // FIX FONT
 // FIX METADADA
 // PILL OUT TO ROOT LAYOUT CREATE COMPONENT

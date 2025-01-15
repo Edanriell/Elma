@@ -8,7 +8,13 @@ import { DrawerTrigger } from "./drawer-trigger";
 import { DrawerContent } from "./drawer-content";
 
 // TODO
-// Also fix issue with z-index when sorting !
+// All scss must be css
+
+// TODO
+// RootLayout feature
+
+// TODO
+// Drawer Extended
 // Implement orientation vertical - horizontal
 // Implement position left - right - top - bottom
 

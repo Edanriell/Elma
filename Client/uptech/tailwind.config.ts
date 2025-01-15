@@ -21,6 +21,9 @@ export default {
 			width: {
 				"fill-chrome": "-webkit-fill-available",
 				"fill-firefox": "-moz-available"
+			},
+			boxShadow: {
+				soft: "0 4rem 12rem #0000001a"
 			}
 		},
 		screens: {
