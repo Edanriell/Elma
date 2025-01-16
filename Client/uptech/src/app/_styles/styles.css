@@ -1,6 +1,6 @@
-@use "./variables";
-@use "./fonts";
-@use "./reset";
+@import "./variables.css";
+@import "./fonts.css";
+@import "./reset.css";
 
 @tailwind base;
 @tailwind components;
