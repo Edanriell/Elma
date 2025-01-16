@@ -1,8 +1,17 @@
 import { type FC, type ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, type PanInfo } from "motion/react";
+import clsx from "clsx";
 
-import { useDrawerStore } from "../lib";
+import { removeLettersFromString } from "@shared/lib/functions";
+
+import { useDrawerStore } from "../lib/hooks";
+import {
+	calculateDrawerOffsetX,
+	calculateDrawerOffsetY,
+	calculateLastDrawerOffsetX,
+	calculateLastDrawerOffsetY
+} from "../lib/functions";
 
 type DrawerInstanceProps = {
 	id: string;
@@ -30,17 +39,32 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers - 1;
 
 	const DRAWER_SCALE = 1.0 - reversedIndex / 10;
-	const DRAWER_OFFSET_X = -70 * reversedIndex;
-	const DRAWER_OFFSET_Y = 30 * reversedIndex;
+	const DRAWER_OFFSET_X = calculateDrawerOffsetX({
+		reversedIndex,
+		drawerPosition: config.drawerPosition
+	});
+	const DRAWER_OFFSET_Y = calculateDrawerOffsetY({
+		reversedIndex,
+		drawerPosition: config.drawerPosition
+	});
 
 	const LAST_DRAWER_SCALE = 1.0 - config.maxDrawers / 13;
-	const LAST_DRAWER_OFFSET_X = -70 * config.maxDrawers;
-	const LAST_DRAWER_OFFSET_Y = 30 * config.maxDrawers;
+	const LAST_DRAWER_OFFSET_X = calculateLastDrawerOffsetX({
+		maxDrawers: config.maxDrawers,
+		drawerPosition: config.drawerPosition
+	});
+	const LAST_DRAWER_OFFSET_Y = calculateLastDrawerOffsetY({
+		maxDrawers: config.maxDrawers,
+		drawerPosition: config.drawerPosition
+	});
 
 	const drawerAnimationVariants = {
 		initial: {
 			opacity: 0,
-			x: Number(config.drawerWidth.replace(/[a-zA-Z]/g, "")),
+			x:
+				config.drawerPosition === "left"
+					? -Number(removeLettersFromString(config.drawerWidth))
+					: Number(removeLettersFromString(config.drawerWidth)),
 			y: 0,
 			scale: 1,
 			filter: "blur(5rem)"
@@ -61,22 +85,37 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		},
 		exit: {
 			opacity: 0,
-			x: config.drawerWidth,
+			// x: config.drawerPosition === "left" ? config.drawerWidth : config.drawerWidth,
+			x: config.drawerPosition === "left" ? -380 : 380,
 			y: DRAWER_OFFSET_Y,
 			DRAWER_SCALE,
 			filter: "blur(5rem)"
 		},
 		hover: {
-			x: DRAWER_OFFSET_X - 20 * reversedIndex
+			x:
+				config.drawerPosition === "left"
+					? DRAWER_OFFSET_X! + 20 * reversedIndex
+					: DRAWER_OFFSET_X! - 20 * reversedIndex
 		}
 	};
 
 	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
 		const { offset, velocity } = info;
 
+		console.log(config.drawerPosition);
+		console.log(offset.x);
+		console.log(velocity.x);
 		// Close drawer if dragged significantly
-		if (offset.x > 100 || velocity.x > 0.4) {
-			closeDrawer(id);
+		if (config.drawerPosition === "left") {
+			if (offset.x < 100 || velocity.x < 0.4) {
+				closeDrawer(id);
+				console.log("1");
+			}
+		} else {
+			if (offset.x > 100 || velocity.x > 0.4) {
+				closeDrawer(id);
+				console.log("2");
+			}
 		}
 	};
 
@@ -88,11 +127,22 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		closeDrawer(id);
 	};
 
+	const interactiveDrawerClasses = clsx(
+		"fixed top-[19%] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
+		{
+			"right-[0] origin-top-right mr-[24rem]": config.drawerPosition === "right",
+			"left-[0] origin-top-left ml-[24rem]": config.drawerPosition === "left"
+		}
+	);
+
 	const renderInteractiveDrawer = () => (
 		<motion.aside
 			key={id}
 			drag={IS_DRAWER_FIRST_IN_STACK ? "x" : ""}
-			dragConstraints={{ left: 10, right: config.drawerWidth }}
+			dragConstraints={{
+				left: config.drawerPosition === "left" ? config.drawerWidth : 10,
+				right: config.drawerPosition === "left" ? 10 : config.drawerWidth
+			}}
 			dragElastic={0.15}
 			dragSnapToOrigin
 			onDragEnd={handleDrawerDragEnd}
@@ -102,7 +152,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			exit={"exit"}
 			animate={IS_DRAWER_LAST_IN_STACK ? "last" : "default"}
 			transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-			className="fixed top-[19%] right-[0] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] mr-[24rem] shadow-soft origin-top-right"
+			className={interactiveDrawerClasses}
 			style={{
 				width: config.drawerWidth,
 				height: config.drawerHeight,

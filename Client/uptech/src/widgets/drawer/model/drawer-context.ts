@@ -9,6 +9,7 @@ export type DrawerConfig = {
 	maxDrawers: number;
 	drawerWidth: string;
 	drawerHeight: string;
+	drawerPosition: string;
 };
 
 export type DrawerStore = {

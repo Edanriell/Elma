@@ -1,6 +1,6 @@
 import React, { type FC, Fragment, type MouseEvent, type ReactNode } from "react";
 
-import { useDrawerStore } from "../lib";
+import { useDrawerStore } from "../lib/hooks";
 
 type DrawerTriggerProps = {
 	children: ReactNode;

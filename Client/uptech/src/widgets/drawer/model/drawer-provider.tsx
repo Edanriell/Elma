@@ -11,7 +11,8 @@ export const DrawerProvider = ({ children }: DrawerProviderProps) => {
 	const [config, setConfig] = useState({
 		maxDrawers: 3,
 		drawerWidth: "320px",
-		drawerHeight: "75%"
+		drawerHeight: "75%",
+		drawerPosition: "right"
 	});
 
 	const drawersContent = useRef<Array<ReactNode> | []>([]); // Use useRef for static content

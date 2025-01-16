@@ -1,7 +1,7 @@
 import React, { type FC, Fragment, type ReactElement, useLayoutEffect } from "react";
 
 import { DrawerProvider } from "../model";
-import { useDrawerStore } from "../lib";
+import { useDrawerStore } from "../lib/hooks";
 
 import { DrawerRoot } from "./drawer-root";
 import { DrawerTrigger } from "./drawer-trigger";
@@ -22,21 +22,23 @@ type DrawerProps = {
 	max?: number;
 	width?: string;
 	height?: string;
+	position?: "top" | "bottom" | "left" | "right";
 	children: ReactElement<typeof DrawerContent>;
 };
 
 type Drawer = FC<DrawerProps> & DrawerComponents;
 
-export const Drawer: Drawer = ({ max, width, height, children }) => {
+export const Drawer: Drawer = ({ max, width, height, position, children }) => {
 	const { setConfig } = useDrawerStore();
 
 	useLayoutEffect(() => {
 		setConfig({
 			maxDrawers: max ?? 3,
 			drawerWidth: width ?? "380rem",
-			drawerHeight: height ?? "75%"
+			drawerHeight: height ?? "75%",
+			drawerPosition: position ?? "right"
 		});
-	}, []);
+	}, [max, width, height, position]);
 
 	React.Children.forEach(children, (child) => {
 		if (!(React.isValidElement(child) && child.type === DrawerContent)) {

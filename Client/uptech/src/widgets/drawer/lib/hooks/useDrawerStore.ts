@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { DrawerContext, type DrawerStore } from "../model";
+import { DrawerContext, type DrawerStore } from "../../model";
 
 export const useDrawerStore = (): DrawerStore => {
 	const context = useContext(DrawerContext);
