@@ -7,11 +7,6 @@ import { DrawerRoot } from "./drawer-root";
 import { DrawerTrigger } from "./drawer-trigger";
 import { DrawerContent } from "./drawer-content";
 
-// TODO
-// Drawer Extended
-// Implement orientation vertical - horizontal
-// Implement position left - right - top - bottom
-
 type DrawerComponents = {
 	Provider: typeof DrawerProvider;
 	Trigger: typeof DrawerTrigger;
