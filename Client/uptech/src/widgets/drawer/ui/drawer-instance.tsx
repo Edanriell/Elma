@@ -5,13 +5,8 @@ import clsx from "clsx";
 
 import { removeLettersFromString } from "@shared/lib/functions";
 
+import { getDragAxis, getDragConstraints } from "../lib/functions";
 import { useDrawerStore } from "../lib/hooks";
-import {
-	calculateDrawerOffsetX,
-	calculateDrawerOffsetY,
-	calculateLastDrawerOffsetX,
-	calculateLastDrawerOffsetY
-} from "../lib/functions";
 
 type DrawerInstanceProps = {
 	id: string;
@@ -37,27 +32,6 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 
 	const IS_DRAWER_FIRST_IN_STACK = reversedIndex === 0;
 	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers - 1;
-
-	const DRAWER_SCALE = 1.0 - reversedIndex / 10;
-	const DRAWER_OFFSET_X = calculateDrawerOffsetX({
-		reversedIndex,
-		drawerPosition: config.drawerPosition
-	});
-	const DRAWER_OFFSET_Y = calculateDrawerOffsetY({
-		reversedIndex,
-		drawerPosition: config.drawerPosition
-	});
-
-	const LAST_DRAWER_SCALE = 1.0 - config.maxDrawers / 13;
-
-	const LAST_DRAWER_OFFSET_X = calculateLastDrawerOffsetX({
-		maxDrawers: config.maxDrawers,
-		drawerPosition: config.drawerPosition
-	});
-	const LAST_DRAWER_OFFSET_Y = calculateLastDrawerOffsetY({
-		maxDrawers: config.maxDrawers,
-		drawerPosition: config.drawerPosition
-	});
 
 	const initialAnimationVariants = {
 		right: {
@@ -208,8 +182,6 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
 		const { offset, velocity } = info;
 
-		console.log(velocity);
-
 		switch (config.drawerPosition) {
 			case "left": {
 				if (offset.x < 100 || velocity.x < 0.4) {
@@ -242,54 +214,6 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		closeDrawer(id);
 	};
 
-	const getDragAxis = (drawerPosition: string, isFirstInStack: boolean): "x" | "y" | "" => {
-		if (!isFirstInStack) return "";
-
-		switch (drawerPosition) {
-			case "left":
-			case "right": {
-				return "x";
-			}
-			case "top":
-			case "bottom": {
-				return "y";
-			}
-		}
-	};
-
-	const getDragConstraints = (
-		drawerPosition: string,
-		drawerWidth: string,
-		drawerHeight: string
-	) => {
-		switch (drawerPosition) {
-			case "left": {
-				return {
-					left: drawerWidth,
-					right: 10
-				};
-			}
-			case "right": {
-				return {
-					left: 10,
-					right: drawerWidth
-				};
-			}
-			case "bottom": {
-				return {
-					top: 10,
-					bottom: drawerHeight
-				};
-			}
-			case "top": {
-				return {
-					top: drawerHeight,
-					bottom: 10
-				};
-			}
-		}
-	};
-
 	const interactiveDrawerClasses = clsx(
 		"fixed rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
 		{
@@ -303,12 +227,15 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const renderInteractiveDrawer = () => (
 		<motion.aside
 			key={id}
-			drag={getDragAxis(config.drawerPosition, IS_DRAWER_FIRST_IN_STACK)}
-			dragConstraints={getDragConstraints(
-				config.drawerPosition,
-				config.drawerWidth,
-				config.drawerHeight
-			)}
+			drag={getDragAxis({
+				drawerPosition: config.drawerPosition,
+				isFirstInStack: IS_DRAWER_FIRST_IN_STACK
+			})}
+			dragConstraints={getDragConstraints({
+				drawerPosition: config.drawerPosition,
+				drawerWidth: config.drawerWidth,
+				drawerHeight: config.drawerHeight
+			})}
 			dragElastic={0.15}
 			dragSnapToOrigin
 			onDragEnd={handleDrawerDragEnd}
