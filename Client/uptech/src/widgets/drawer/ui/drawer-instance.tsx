@@ -80,6 +80,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			y: `${config.drawerHeight}`,
 			scale: 1,
 			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: `-${config.drawerHeight}`,
+			scale: 1,
+			filter: "blur(5rem)"
 		}
 	};
 
@@ -104,6 +111,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			y: -70 * reversedIndex,
 			scale: 1.0 - reversedIndex / 10,
 			filter: "blur(0rem)"
+		},
+		top: {
+			opacity: 1,
+			x: 0,
+			y: 70 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(0rem)"
 		}
 	};
 
@@ -126,6 +140,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			opacity: 0,
 			x: 0,
 			y: -70 * config.maxDrawers,
+			scale: 1.0 - config.maxDrawers / 13,
+			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: 70 * config.maxDrawers,
 			scale: 1.0 - config.maxDrawers / 13,
 			filter: "blur(5rem)"
 		}
@@ -154,6 +175,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			y: `${config.drawerHeight}`,
 			scale: 1.0 - reversedIndex / 10,
 			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: `-${config.drawerHeight}`,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(5rem)"
 		}
 	};
 
@@ -180,6 +208,8 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
 		const { offset, velocity } = info;
 
+		console.log(velocity);
+
 		switch (config.drawerPosition) {
 			case "left": {
 				if (offset.x < 100 || velocity.x < 0.4) {
@@ -192,12 +222,12 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 				}
 			}
 			case "bottom": {
-				if (offset.y > 100 || velocity.y > 0.4) {
+				if (offset.y > 150 || velocity.y > 400) {
 					closeDrawer(id);
 				}
 			}
 			case "top": {
-				if (offset.y < 100 || velocity.y > 0.4) {
+				if (offset.y < -150 || velocity.y < -400) {
 					closeDrawer(id);
 				}
 			}
@@ -265,7 +295,8 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		{
 			"top-[19%] right-[0] origin-top-right mr-[24rem]": config.drawerPosition === "right",
 			"top-[19%] left-[0] origin-top-left ml-[24rem]": config.drawerPosition === "left",
-			"bottom-[0] left-[0] origin-bottom m-[16rem]": config.drawerPosition === "bottom"
+			"bottom-[0] left-[0] origin-bottom m-[16rem]": config.drawerPosition === "bottom",
+			"top-[0] left-[0] origin-top m-[16rem]": config.drawerPosition === "top"
 		}
 	);
 

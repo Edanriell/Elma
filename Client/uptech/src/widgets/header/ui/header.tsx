@@ -16,7 +16,7 @@ export const Header: FC = () => {
 			<StaticHeader />
 			<StickyHeader />
 			<MobileNavigation className="fixed top-[80rem] left-0" />
-			<Drawer max={3} width="96.5%" height="60%" position="bottom">
+			<Drawer max={3} width="96.5%" height="60%" position="top">
 				<Drawer.Content>
 					<div data-content-id="1x">Content 1</div>
 					<div data-content-id="2x">Content 2</div>
