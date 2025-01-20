@@ -4,7 +4,7 @@ type getDragAxisParameters = {
 };
 
 export const getDragAxis = ({ drawerPosition, isFirstInStack }: getDragAxisParameters) => {
-	if (!isFirstInStack) return "";
+	if (!isFirstInStack) return false;
 
 	switch (drawerPosition) {
 		case "left":
@@ -15,5 +15,7 @@ export const getDragAxis = ({ drawerPosition, isFirstInStack }: getDragAxisParam
 		case "bottom": {
 			return "y";
 		}
+		default:
+			return undefined;
 	}
 };
