@@ -6,9 +6,10 @@ export type Drawer = {
 };
 
 export type DrawerConfig = {
-	maxDrawers: number;
-	drawerWidth: string;
-	drawerHeight: string;
+	maxDrawers: number | null;
+	drawerWidth: string | null;
+	drawerHeight: string | null;
+	drawerPosition: "top" | "bottom" | "left" | "right" | null;
 };
 
 export type DrawerStore = {

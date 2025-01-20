@@ -1,8 +1,12 @@
 import { type FC, type ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, type PanInfo } from "motion/react";
+import clsx from "clsx";
 
-import { useDrawerStore } from "../lib";
+import { removeLettersFromString } from "@shared/lib/functions";
+
+import { getDragAxis, getDragConstraints } from "../lib/functions";
+import { useDrawerStore } from "../lib/hooks";
 
 type DrawerInstanceProps = {
 	id: string;
@@ -27,56 +31,181 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	}, [closeDrawer]);
 
 	const IS_DRAWER_FIRST_IN_STACK = reversedIndex === 0;
-	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers - 1;
+	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers! - 1;
 
-	const DRAWER_SCALE = 1.0 - reversedIndex / 10;
-	const DRAWER_OFFSET_X = -70 * reversedIndex;
-	const DRAWER_OFFSET_Y = 30 * reversedIndex;
-
-	const LAST_DRAWER_SCALE = 1.0 - config.maxDrawers / 13;
-	const LAST_DRAWER_OFFSET_X = -70 * config.maxDrawers;
-	const LAST_DRAWER_OFFSET_Y = 30 * config.maxDrawers;
-
-	const drawerAnimationVariants = {
-		initial: {
+	const initialAnimationVariants = {
+		right: {
 			opacity: 0,
-			x: Number(config.drawerWidth.replace(/[a-zA-Z]/g, "")),
+			x: Number(removeLettersFromString(config.drawerWidth!)),
 			y: 0,
 			scale: 1,
 			filter: "blur(5rem)"
 		},
-		default: {
+		left: {
+			opacity: 0,
+			x: -Number(removeLettersFromString(config.drawerWidth!)),
+			y: 0,
+			scale: 1,
+			filter: "blur(5rem)"
+		},
+		bottom: {
+			opacity: 0,
+			x: 0,
+			y: `${config.drawerHeight}`,
+			scale: 1,
+			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: `-${config.drawerHeight}`,
+			scale: 1,
+			filter: "blur(5rem)"
+		}
+	};
+
+	const defaultAnimationVariants = {
+		right: {
 			opacity: 1,
-			x: DRAWER_OFFSET_X,
-			y: DRAWER_OFFSET_Y,
-			scale: DRAWER_SCALE,
+			x: -70 * reversedIndex,
+			y: 30 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
 			filter: "blur(0rem)"
 		},
-		last: {
-			opacity: 0,
-			x: LAST_DRAWER_OFFSET_X,
-			y: LAST_DRAWER_OFFSET_Y,
-			scale: LAST_DRAWER_SCALE,
-			filter: "blur(5rem)"
+		left: {
+			opacity: 1,
+			x: 70 * reversedIndex,
+			y: 30 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(0rem)"
 		},
-		exit: {
-			opacity: 0,
-			x: config.drawerWidth,
-			y: DRAWER_OFFSET_Y,
-			DRAWER_SCALE,
-			filter: "blur(5rem)"
+		bottom: {
+			opacity: 1,
+			x: 0,
+			y: -70 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(0rem)"
 		},
-		hover: {
-			x: DRAWER_OFFSET_X - 20 * reversedIndex
+		top: {
+			opacity: 1,
+			x: 0,
+			y: 70 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(0rem)"
 		}
+	};
+
+	const lastAnimationVariants = {
+		right: {
+			opacity: 0,
+			x: -70 * config.maxDrawers!,
+			y: 30 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
+			filter: "blur(5rem)"
+		},
+		left: {
+			opacity: 0,
+			x: 70 * config.maxDrawers!,
+			y: 30 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
+			filter: "blur(5rem)"
+		},
+		bottom: {
+			opacity: 0,
+			x: 0,
+			y: -70 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
+			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: 70 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
+			filter: "blur(5rem)"
+		}
+	};
+
+	const exitAnimationVariants = {
+		right: {
+			opacity: 0,
+			// x: config.drawerPosition === "left" ? config.drawerWidth : config.drawerWidth,
+			x: 380,
+			y: 30 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(5rem)"
+		},
+		left: {
+			opacity: 0,
+			// x: config.drawerPosition === "left" ? config.drawerWidth : config.drawerWidth,
+			x: -380,
+			y: 30 * reversedIndex,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(5rem)"
+		},
+		bottom: {
+			opacity: 0,
+			x: 0,
+			y: `${config.drawerHeight}`,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(5rem)"
+		},
+		top: {
+			opacity: 0,
+			x: 0,
+			y: `-${config.drawerHeight}`,
+			scale: 1.0 - reversedIndex / 10,
+			filter: "blur(5rem)"
+		}
+	};
+
+	const hoverAnimationVariants = {
+		right: {
+			x: -70 * reversedIndex - 20 * reversedIndex
+		},
+		left: {
+			x: 70 * reversedIndex + 20 * reversedIndex
+		},
+		bottom: {
+			y: -70 * reversedIndex - 20 * reversedIndex
+		},
+		top: {
+			y: 70 * reversedIndex + 20 * reversedIndex
+		}
+	};
+
+	const drawerAnimationVariants = {
+		initial: initialAnimationVariants[config.drawerPosition!],
+		default: defaultAnimationVariants[config.drawerPosition!],
+		last: lastAnimationVariants[config.drawerPosition!],
+		exit: exitAnimationVariants[config.drawerPosition!],
+		hover: hoverAnimationVariants[config.drawerPosition!]
 	};
 
 	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
 		const { offset, velocity } = info;
 
-		// Close drawer if dragged significantly
-		if (offset.x > 100 || velocity.x > 0.4) {
-			closeDrawer(id);
+		switch (config.drawerPosition) {
+			case "left": {
+				if (offset.x < 100 || velocity.x < 0.4) {
+					closeDrawer(id);
+				}
+			}
+			case "right": {
+				if (offset.x > 100 || velocity.x > 0.4) {
+					closeDrawer(id);
+				}
+			}
+			case "bottom": {
+				if (offset.y > 150 || velocity.y > 400) {
+					closeDrawer(id);
+				}
+			}
+			case "top": {
+				if (offset.y < -150 || velocity.y < -400) {
+					closeDrawer(id);
+				}
+			}
 		}
 	};
 
@@ -88,11 +217,28 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		closeDrawer(id);
 	};
 
+	const interactiveDrawerClasses = clsx(
+		"fixed rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
+		{
+			"top-[19%] right-[0] origin-top-right mr-[24rem]": config.drawerPosition === "right",
+			"top-[19%] left-[0] origin-top-left ml-[24rem]": config.drawerPosition === "left",
+			"bottom-[0] left-[0] origin-bottom m-[16rem]": config.drawerPosition === "bottom",
+			"top-[0] left-[0] origin-top m-[16rem]": config.drawerPosition === "top"
+		}
+	);
+
 	const renderInteractiveDrawer = () => (
 		<motion.aside
 			key={id}
-			drag={IS_DRAWER_FIRST_IN_STACK ? "x" : ""}
-			dragConstraints={{ left: 10, right: config.drawerWidth }}
+			drag={getDragAxis({
+				drawerPosition: config.drawerPosition!,
+				isFirstInStack: IS_DRAWER_FIRST_IN_STACK
+			})}
+			dragConstraints={getDragConstraints({
+				drawerPosition: config.drawerPosition!,
+				drawerWidth: config.drawerWidth!,
+				drawerHeight: config.drawerHeight!
+			})}
 			dragElastic={0.15}
 			dragSnapToOrigin
 			onDragEnd={handleDrawerDragEnd}
@@ -102,7 +248,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			exit={"exit"}
 			animate={IS_DRAWER_LAST_IN_STACK ? "last" : "default"}
 			transition={{ type: "spring", duration: 0.6, bounce: 0 }}
-			className="fixed top-[19%] right-[0] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] mr-[24rem] shadow-soft origin-top-right"
+			className={interactiveDrawerClasses}
 			style={{
 				width: config.drawerWidth,
 				height: config.drawerHeight,

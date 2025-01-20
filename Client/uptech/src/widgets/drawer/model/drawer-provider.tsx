@@ -1,6 +1,6 @@
 import { type ReactElement, type ReactNode, useRef, useState } from "react";
 
-import { type Drawer, DrawerContext } from "./drawer-context";
+import { type Drawer, type DrawerConfig, DrawerContext } from "./drawer-context";
 
 type DrawerProviderProps = {
 	children: ReactNode;
@@ -8,10 +8,11 @@ type DrawerProviderProps = {
 
 export const DrawerProvider = ({ children }: DrawerProviderProps) => {
 	const [drawers, setDrawers] = useState<Array<Drawer> | []>([]);
-	const [config, setConfig] = useState({
-		maxDrawers: 3,
-		drawerWidth: "320px",
-		drawerHeight: "75%"
+	const [config, setConfig] = useState<DrawerConfig>({
+		maxDrawers: null,
+		drawerWidth: null,
+		drawerHeight: null,
+		drawerPosition: null
 	});
 
 	const drawersContent = useRef<Array<ReactNode> | []>([]); // Use useRef for static content

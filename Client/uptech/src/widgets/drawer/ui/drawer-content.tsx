@@ -1,6 +1,6 @@
 import React, { type FC, type ReactNode, useLayoutEffect } from "react";
 
-import { useDrawerStore } from "../lib";
+import { useDrawerStore } from "../lib/hooks";
 
 type DrawerContentProps = {
 	children: ReactNode;

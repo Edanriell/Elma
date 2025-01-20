@@ -1,7 +1,7 @@
 import { type FC, useLayoutEffect } from "react";
 import { AnimatePresence } from "motion/react";
 
-import { useDrawerStore } from "../lib";
+import { useDrawerStore } from "../lib/hooks";
 
 import { DrawerInstance } from "./drawer-instance";
 
