@@ -220,8 +220,8 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const interactiveDrawerClasses = clsx(
 		"fixed rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
 		{
-			"top-[19%] right-[0] origin-top-right mr-[24rem]": config.drawerPosition === "right",
-			"top-[19%] left-[0] origin-top-left ml-[24rem]": config.drawerPosition === "left",
+			"top-[14%] right-[0] origin-top-right mr-[24rem]": config.drawerPosition === "right",
+			"top-[14%] left-[0] origin-top-left ml-[24rem]": config.drawerPosition === "left",
 			"bottom-[0] left-[0] origin-bottom m-[16rem]": config.drawerPosition === "bottom",
 			"top-[0] left-[0] origin-top m-[16rem]": config.drawerPosition === "top"
 		}
@@ -234,11 +234,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 				drawerPosition: config.drawerPosition!,
 				isFirstInStack: IS_DRAWER_FIRST_IN_STACK
 			})}
-			dragConstraints={getDragConstraints({
-				drawerPosition: config.drawerPosition!,
-				drawerWidth: config.drawerWidth!,
-				drawerHeight: config.drawerHeight!
-			})}
+			dragConstraints={
+				getDragConstraints({
+					drawerPosition: config.drawerPosition!,
+					drawerWidth: config.drawerWidth!,
+					drawerHeight: config.drawerHeight!
+				}) as never
+			}
 			dragElastic={0.15}
 			dragSnapToOrigin
 			onDragEnd={handleDrawerDragEnd}
@@ -250,8 +252,8 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			transition={{ type: "spring", duration: 0.6, bounce: 0 }}
 			className={interactiveDrawerClasses}
 			style={{
-				width: config.drawerWidth,
-				height: config.drawerHeight,
+				width: config.drawerWidth!,
+				height: config.drawerHeight!,
 				zIndex: index, // Stack each sidebar dynamically
 				cursor: IS_DRAWER_FIRST_IN_STACK ? "default" : "pointer"
 			}}

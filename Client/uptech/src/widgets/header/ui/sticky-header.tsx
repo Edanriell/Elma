@@ -74,11 +74,16 @@ const stickyHeaderAnimationVariants = {
 export const StickyHeader: FC = () => {
 	const { animationControls } = useStickyHeader();
 
+	// TODO
+	// When Home page will be complete play with paddings
+	// See what fits best
+	// tablet:pl-[32rem] tablet:pr-[32rem] tablet:pt-[24rem] tablet:pb-[24rem] tablet:ml-[24rem] tablet:mr-[24rem] tablet:mt-[24rem] tablet:mb-[24rem]
+
 	return (
 		<motion.header
 			animate={animationControls}
 			variants={stickyHeaderAnimationVariants}
-			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:pl-[32rem] tablet:pr-[32rem] tablet:pt-[24rem] tablet:pb-[24rem] tablet:ml-[24rem] tablet:mr-[24rem] tablet:mt-[24rem] tablet:mb-[24rem] tablet:max-h-[80rem] tablet:invisible"
+			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:max-h-[80rem] tablet:invisible"
 			role="banner"
 			aria-label="Sticky header"
 		>

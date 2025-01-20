@@ -1,10 +1,11 @@
 import { type ComponentPropsWithoutRef, type FC, type JSX } from "react";
-import { motion } from "motion/react";
+import { motion, type MotionProps } from "motion/react";
 
 type NavigationLinkProps = {
 	name: string;
 	Icon: () => JSX.Element;
-} & ComponentPropsWithoutRef<"button">;
+} & MotionProps &
+	ComponentPropsWithoutRef<"button">;
 
 const navigationLinkAnimationVariants = {
 	hover: {
@@ -19,7 +20,7 @@ const navigationLinkAnimationVariants = {
 
 export const NavigationLink: FC<NavigationLinkProps> = ({ name, Icon, ...rest }) => {
 	return (
-		<li>
+		<li className="flex items-center">
 			<motion.button
 				variants={navigationLinkAnimationVariants}
 				whileHover={"hover"}
