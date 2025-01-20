@@ -31,19 +31,19 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	}, [closeDrawer]);
 
 	const IS_DRAWER_FIRST_IN_STACK = reversedIndex === 0;
-	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers - 1;
+	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers! - 1;
 
 	const initialAnimationVariants = {
 		right: {
 			opacity: 0,
-			x: Number(removeLettersFromString(config.drawerWidth)),
+			x: Number(removeLettersFromString(config.drawerWidth!)),
 			y: 0,
 			scale: 1,
 			filter: "blur(5rem)"
 		},
 		left: {
 			opacity: 0,
-			x: -Number(removeLettersFromString(config.drawerWidth)),
+			x: -Number(removeLettersFromString(config.drawerWidth!)),
 			y: 0,
 			scale: 1,
 			filter: "blur(5rem)"
@@ -98,30 +98,30 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const lastAnimationVariants = {
 		right: {
 			opacity: 0,
-			x: -70 * config.maxDrawers,
-			y: 30 * config.maxDrawers,
-			scale: 1.0 - config.maxDrawers / 13,
+			x: -70 * config.maxDrawers!,
+			y: 30 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
 			filter: "blur(5rem)"
 		},
 		left: {
 			opacity: 0,
-			x: 70 * config.maxDrawers,
-			y: 30 * config.maxDrawers,
-			scale: 1.0 - config.maxDrawers / 13,
+			x: 70 * config.maxDrawers!,
+			y: 30 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
 			filter: "blur(5rem)"
 		},
 		bottom: {
 			opacity: 0,
 			x: 0,
-			y: -70 * config.maxDrawers,
-			scale: 1.0 - config.maxDrawers / 13,
+			y: -70 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
 			filter: "blur(5rem)"
 		},
 		top: {
 			opacity: 0,
 			x: 0,
-			y: 70 * config.maxDrawers,
-			scale: 1.0 - config.maxDrawers / 13,
+			y: 70 * config.maxDrawers!,
+			scale: 1.0 - config.maxDrawers! / 13,
 			filter: "blur(5rem)"
 		}
 	};
@@ -168,15 +168,18 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		},
 		bottom: {
 			y: -70 * reversedIndex - 20 * reversedIndex
+		},
+		top: {
+			y: 70 * reversedIndex + 20 * reversedIndex
 		}
 	};
 
 	const drawerAnimationVariants = {
-		initial: initialAnimationVariants[config.drawerPosition],
-		default: defaultAnimationVariants[config.drawerPosition],
-		last: lastAnimationVariants[config.drawerPosition],
-		exit: exitAnimationVariants[config.drawerPosition],
-		hover: hoverAnimationVariants[config.drawerPosition]
+		initial: initialAnimationVariants[config.drawerPosition!],
+		default: defaultAnimationVariants[config.drawerPosition!],
+		last: lastAnimationVariants[config.drawerPosition!],
+		exit: exitAnimationVariants[config.drawerPosition!],
+		hover: hoverAnimationVariants[config.drawerPosition!]
 	};
 
 	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
@@ -228,13 +231,13 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		<motion.aside
 			key={id}
 			drag={getDragAxis({
-				drawerPosition: config.drawerPosition,
+				drawerPosition: config.drawerPosition!,
 				isFirstInStack: IS_DRAWER_FIRST_IN_STACK
 			})}
 			dragConstraints={getDragConstraints({
-				drawerPosition: config.drawerPosition,
-				drawerWidth: config.drawerWidth,
-				drawerHeight: config.drawerHeight
+				drawerPosition: config.drawerPosition!,
+				drawerWidth: config.drawerWidth!,
+				drawerHeight: config.drawerHeight!
 			})}
 			dragElastic={0.15}
 			dragSnapToOrigin

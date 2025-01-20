@@ -23,15 +23,21 @@ type DrawerProps = {
 
 type Drawer = FC<DrawerProps> & DrawerComponents;
 
-export const Drawer: Drawer = ({ max, width, height, position, children }) => {
+export const Drawer: Drawer = ({
+	max = 3,
+	width = "380rem",
+	height = "75%",
+	position = "right",
+	children
+}) => {
 	const { setConfig } = useDrawerStore();
 
 	useLayoutEffect(() => {
 		setConfig({
-			maxDrawers: max ?? 3,
-			drawerWidth: width ?? "380rem",
-			drawerHeight: height ?? "75%",
-			drawerPosition: position ?? "right"
+			maxDrawers: max,
+			drawerWidth: width,
+			drawerHeight: height,
+			drawerPosition: position
 		});
 	}, [max, width, height, position]);
 
