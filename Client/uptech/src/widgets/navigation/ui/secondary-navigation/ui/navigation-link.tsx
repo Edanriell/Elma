@@ -19,7 +19,7 @@ const navigationLinkAnimationVariants = {
 
 export const NavigationLink: FC<NavigationLinkProps> = ({ name, Icon, ...rest }) => {
 	return (
-		<li>
+		<li className="flex items-center">
 			<motion.button
 				variants={navigationLinkAnimationVariants}
 				whileHover={"hover"}
