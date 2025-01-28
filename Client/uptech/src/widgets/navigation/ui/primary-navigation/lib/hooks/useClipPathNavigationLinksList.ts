@@ -1,7 +1,7 @@
 import { type MutableRefObject, useEffect } from "react";
 import { useAnimationControls } from "motion/react";
 
-import { calculateClipPath } from "./calculateClipPath";
+import { calculateClipPath } from "../functions";
 
 export const useClipPathNavigationLinksList = (
 	containerRef: MutableRefObject<HTMLDivElement | null>,

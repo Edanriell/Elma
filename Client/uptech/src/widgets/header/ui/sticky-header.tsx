@@ -1,6 +1,7 @@
 import React, { type FC } from "react";
-import { motion } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
 
 import { Drawer } from "@widgets/drawer/ui";
 import {
@@ -16,7 +17,7 @@ import { MobileNavigation } from "@widgets/mobile-navigation/ui";
 import { Logotype } from "@shared/ui/logotype/ui";
 import { Icon } from "@shared/ui/icon/ui";
 
-import { useStickyHeader } from "../lib";
+import { useStickyHeader } from "../lib/hooks";
 
 const stickyHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
@@ -53,7 +54,7 @@ const stickyHeaderSecondaryNavigationLinks = new Map<string, SecondaryNavigation
 	]
 ]);
 
-const stickyHeaderAnimationVariants = {
+const stickyHeaderAnimationVariants: Variants = {
 	visible: {
 		opacity: 1,
 		y: 0,
@@ -83,11 +84,13 @@ export const StickyHeader: FC = () => {
 		<motion.header
 			animate={animationControls}
 			variants={stickyHeaderAnimationVariants}
-			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:max-h-[80rem] tablet:invisible"
+			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:max-h-[80rem] tablet:invisible z-[100]"
 			role="banner"
 			aria-label="Sticky header"
 		>
-			<Logotype size="small" color="light" />
+			<Link href="/">
+				<Logotype size="small" color="light" />
+			</Link>
 			<PrimaryNavigation orientation="horizontal">
 				<PrimaryNavigation.NavigationLinksList>
 					{Array.from(stickyHeaderPrimaryNavigationLinks.values()).map(

@@ -1,6 +1,6 @@
 import { type FC, type ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { motion, type PanInfo } from "motion/react";
+import { motion, type PanInfo, type Variants } from "motion/react";
 import clsx from "clsx";
 
 import { removeLettersFromString } from "@shared/lib/functions";
@@ -33,7 +33,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 	const IS_DRAWER_FIRST_IN_STACK = reversedIndex === 0;
 	const IS_DRAWER_LAST_IN_STACK = reversedIndex > config.maxDrawers! - 1;
 
-	const initialAnimationVariants = {
+	const initialAnimationVariants: Variants = {
 		right: {
 			opacity: 0,
 			x: Number(removeLettersFromString(config.drawerWidth!)),
@@ -64,7 +64,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const defaultAnimationVariants = {
+	const defaultAnimationVariants: Variants = {
 		right: {
 			opacity: 1,
 			x: -70 * reversedIndex,
@@ -95,7 +95,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const lastAnimationVariants = {
+	const lastAnimationVariants: Variants = {
 		right: {
 			opacity: 0,
 			x: -70 * config.maxDrawers!,
@@ -126,7 +126,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const exitAnimationVariants = {
+	const exitAnimationVariants: Variants = {
 		right: {
 			opacity: 0,
 			// x: config.drawerPosition === "left" ? config.drawerWidth : config.drawerWidth,
@@ -159,7 +159,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const hoverAnimationVariants = {
+	const hoverAnimationVariants: Variants = {
 		right: {
 			x: -70 * reversedIndex - 20 * reversedIndex
 		},
@@ -174,7 +174,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const drawerAnimationVariants = {
+	const drawerAnimationVariants: Variants = {
 		initial: initialAnimationVariants[config.drawerPosition!],
 		default: defaultAnimationVariants[config.drawerPosition!],
 		last: lastAnimationVariants[config.drawerPosition!],
@@ -182,7 +182,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		hover: hoverAnimationVariants[config.drawerPosition!]
 	};
 
-	const handleDrawerDragEnd = (event: Event, info: PanInfo) => {
+	const handleDrawerInteractionEnd = (event: Event, info: PanInfo) => {
 		const { offset, velocity } = info;
 
 		switch (config.drawerPosition) {
@@ -209,13 +209,9 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const handleDrawerClick = () => {
-		reorderDrawer(id);
-	};
+	const handleDrawerReorder = () => reorderDrawer(id);
 
-	const handleDrawerClose = () => {
-		closeDrawer(id);
-	};
+	const handleDrawerDismiss = () => closeDrawer(id);
 
 	const interactiveDrawerClasses = clsx(
 		"fixed rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
@@ -243,7 +239,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			}
 			dragElastic={0.15}
 			dragSnapToOrigin
-			onDragEnd={handleDrawerDragEnd}
+			onDragEnd={handleDrawerInteractionEnd}
 			variants={drawerAnimationVariants}
 			initial={"initial"}
 			whileHover={IS_DRAWER_FIRST_IN_STACK ? "" : "hover"}
@@ -257,10 +253,10 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 				zIndex: index, // Stack each sidebar dynamically
 				cursor: IS_DRAWER_FIRST_IN_STACK ? "default" : "pointer"
 			}}
-			onClick={!IS_DRAWER_LAST_IN_STACK ? handleDrawerClick : undefined}
+			onClick={!IS_DRAWER_LAST_IN_STACK ? handleDrawerReorder : undefined}
 		>
 			{children}
-			<button onClick={handleDrawerClose}>Close</button>
+			<button onClick={handleDrawerDismiss}>Close</button>
 		</motion.aside>
 	);
 

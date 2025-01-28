@@ -1,7 +1,7 @@
 import React, { type FC, type ReactNode, useEffect } from "react";
 import clsx from "clsx";
 
-import { useSecondaryNavigationStore } from "../lib";
+import { useSecondaryNavigationStore } from "../lib/hooks";
 
 type SecondaryNavigationRootProps = {
 	className: string;

@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import { motion, type MotionProps } from "motion/react";
+import { motion, type MotionProps, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
 
 import { Drawer } from "@widgets/drawer/ui";
@@ -11,7 +11,6 @@ import {
 	SecondaryNavigation,
 	SecondaryNavigationLink
 } from "@widgets/navigation/ui/secondary-navigation/ui";
-
 import { useHeaderStore } from "@widgets/header/model";
 
 import { Icon } from "@shared/ui/icon/ui";
@@ -64,7 +63,7 @@ const mobileNavigationSecondaryNavigationLinks = new Map<string, SecondaryNaviga
 	]
 ]);
 
-const mobileNavigationAnimationVariants = {
+const mobileNavigationAnimationVariants: Variants = {
 	initial: {
 		visibility: "hidden",
 		opacity: 0,
@@ -108,7 +107,8 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 			animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
 			variants={mobileNavigationAnimationVariants}
 			className={
-				className + " m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome"
+				className +
+				" m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome z-[100]"
 			}
 		>
 			<div className="shadow-soft pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] flex flex-col items-start flex-[1]">

@@ -1,7 +1,7 @@
 import { type FC, type ReactNode } from "react";
 import Link from "next/link";
 
-import { usePrimaryNavigationStore } from "../lib";
+import { usePrimaryNavigationStore } from "../lib/hooks";
 
 export type NavigationLinkProps = {
 	name: string;

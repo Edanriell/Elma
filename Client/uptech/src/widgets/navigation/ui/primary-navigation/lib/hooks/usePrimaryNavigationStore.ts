@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { PrimaryNavigationContext, type PrimaryNavigationStore } from "../model";
+import { PrimaryNavigationContext, type PrimaryNavigationStore } from "../../model";
 
 export const usePrimaryNavigationStore = (): PrimaryNavigationStore => {
 	const context = useContext(PrimaryNavigationContext);
