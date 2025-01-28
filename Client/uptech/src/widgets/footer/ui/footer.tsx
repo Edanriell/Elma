@@ -30,17 +30,17 @@ export const Footer: FC = () => {
 						Subscribe
 					</button>
 				</form>
-				<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap">
-					<div className="flex flex-col gap-y-[24rem]">
+				<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem]">
+					<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
 						<header className="relative">
 							<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">
 								Pages
 							</h3>
 						</header>
-						<ul className="flex flex-col">
+						<ul className="flex flex-col ml-[-16rem]">
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									About Us
@@ -48,7 +48,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Categories
@@ -56,7 +56,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Catalogue
@@ -64,7 +64,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Testimonials
@@ -72,7 +72,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Articles & Blogs
@@ -80,16 +80,16 @@ export const Footer: FC = () => {
 							</li>
 						</ul>
 					</div>
-					<div className="flex flex-col gap-y-[24rem]">
+					<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
 						<header className="relative">
 							<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">
 								Support
 							</h3>
 						</header>
-						<ul className="flex flex-col">
+						<ul className="flex flex-col ml-[-16rem]">
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									FAQs
@@ -97,7 +97,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Product
@@ -105,7 +105,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Contact
@@ -113,7 +113,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Privacy Policy
@@ -121,7 +121,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Terms & Conditions
@@ -129,16 +129,16 @@ export const Footer: FC = () => {
 							</li>
 						</ul>
 					</div>
-					<div className="flex flex-col gap-y-[24rem]">
+					<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
 						<header className="relative">
 							<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">
 								Social Media
 							</h3>
 						</header>
-						<ul className="flex flex-col">
+						<ul className="flex flex-col ml-[-16rem]">
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Linkedin
@@ -146,7 +146,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Twitter
@@ -154,7 +154,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Instagram
@@ -162,7 +162,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Facebook
@@ -170,7 +170,7 @@ export const Footer: FC = () => {
 							</li>
 							<li className="relative">
 								<Link
-									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block"
+									className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"
 									href="#"
 								>
 									Pinterest
