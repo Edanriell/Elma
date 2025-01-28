@@ -209,9 +209,14 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 		}
 	};
 
-	const handleDrawerReorder = () => reorderDrawer(id);
+	const handleDrawerReorder = () => {
+		reorderDrawer(id);
+	};
 
-	const handleDrawerDismiss = () => closeDrawer(id);
+	const handleDrawerDismiss = () => {
+		console.log("close");
+		closeDrawer(id);
+	};
 
 	const interactiveDrawerClasses = clsx(
 		"fixed rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] p-[20rem] shadow-soft",
@@ -256,7 +261,7 @@ export const DrawerInstance: FC<DrawerInstanceProps> = ({ id, index, reversedInd
 			onClick={!IS_DRAWER_LAST_IN_STACK ? handleDrawerReorder : undefined}
 		>
 			{children}
-			<button onClick={handleDrawerDismiss}>Close</button>
+			<button onClickCapture={handleDrawerDismiss}>Close</button>
 		</motion.aside>
 	);
 
