@@ -2,7 +2,7 @@ import { FC, type ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
-import { usePrimaryNavigationStore } from "../lib";
+import { usePrimaryNavigationStore } from "../lib/hooks";
 
 type PrimaryNavigationStoreProps = {
 	className: string;

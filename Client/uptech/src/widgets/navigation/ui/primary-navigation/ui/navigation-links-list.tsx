@@ -1,7 +1,7 @@
 import React, { type FC, type ReactElement } from "react";
 import clsx from "clsx";
 
-import { usePrimaryNavigationStore } from "../lib";
+import { usePrimaryNavigationStore } from "../lib/hooks";
 
 import { NavigationLink } from "./navigation-link";
 

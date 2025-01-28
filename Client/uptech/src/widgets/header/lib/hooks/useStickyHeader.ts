@@ -3,7 +3,7 @@ import { useAnimationControls, useMotionValueEvent, useScroll } from "motion/rea
 
 import { useWindowSize } from "@shared/lib/hooks";
 
-import { useHeaderStore } from "../model";
+import { useHeaderStore } from "../../model";
 
 export const useStickyHeader = () => {
 	const { width } = useWindowSize();

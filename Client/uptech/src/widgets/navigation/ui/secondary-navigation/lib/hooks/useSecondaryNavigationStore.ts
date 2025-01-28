@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { SecondaryNavigationContext, type SecondaryNavigationStore } from "../model";
+import { SecondaryNavigationContext, type SecondaryNavigationStore } from "../../model";
 
 export const useSecondaryNavigationStore = (): SecondaryNavigationStore => {
 	const context = useContext(SecondaryNavigationContext);

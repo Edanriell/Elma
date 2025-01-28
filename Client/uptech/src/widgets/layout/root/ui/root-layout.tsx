@@ -3,11 +3,12 @@ import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 import "@app/_styles/styles.css";
 
-import { FC, ReactNode } from "react";
+import { type FC, type ReactNode } from "react";
 import localFont from "next/font/local";
 import { Metadata } from "next";
 
 import { Header } from "@widgets/header/ui";
+import { Footer } from "@widgets/footer/ui";
 
 import { generateStaticMetadata } from "@shared/lib/functions";
 
@@ -39,6 +40,7 @@ export const RootLayout: FC<MainLayoutProps> = ({ children }) => {
 			<body>
 				<Header />
 				{children}
+				<Footer />
 			</body>
 		</html>
 	);

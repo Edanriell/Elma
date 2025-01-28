@@ -1,5 +1,5 @@
 import { type ComponentPropsWithoutRef, type FC } from "react";
-import { motion, type MotionProps } from "motion/react";
+import { motion, type MotionProps, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
 
 import { Drawer } from "@widgets/drawer/ui";
@@ -11,7 +11,6 @@ import {
 	SecondaryNavigation,
 	SecondaryNavigationLink
 } from "@widgets/navigation/ui/secondary-navigation/ui";
-
 import { useHeaderStore } from "@widgets/header/model";
 
 import { Icon } from "@shared/ui/icon/ui";
@@ -64,18 +63,18 @@ const mobileNavigationSecondaryNavigationLinks = new Map<string, SecondaryNaviga
 	]
 ]);
 
-const mobileNavigationAnimationVariants = {
+const mobileNavigationAnimationVariants: Variants = {
 	initial: {
 		visibility: "hidden",
+		filter: "blur(5rem)",
 		opacity: 0,
-		y: 20,
-		filter: "blur(5rem)"
+		y: 20
 	},
 	visible: {
 		visibility: "visible",
+		filter: "blur(0rem)",
 		opacity: 1,
 		y: 0,
-		filter: "blur(0rem)",
 		transition: {
 			delay: 0,
 			type: "spring",
@@ -85,9 +84,42 @@ const mobileNavigationAnimationVariants = {
 	},
 	hidden: {
 		visibility: "hidden",
+		filter: "blur(5rem)",
 		opacity: 0,
 		y: 20,
+		transition: {
+			delay: 0.25,
+			type: "spring",
+			bounce: 0,
+			duration: 0.4
+		}
+	}
+};
+
+const mobileNavigationAnimationVariants2: Variants = {
+	initial: {
+		visibility: "hidden",
 		filter: "blur(5rem)",
+		opacity: 0,
+		x: 20
+	},
+	visible: {
+		visibility: "visible",
+		filter: "blur(0rem)",
+		opacity: 1,
+		x: 0,
+		transition: {
+			delay: 0.25,
+			type: "spring",
+			bounce: 0,
+			duration: 0.45
+		}
+	},
+	hidden: {
+		visibility: "hidden",
+		filter: "blur(5rem)",
+		opacity: 0,
+		x: 20,
 		transition: {
 			delay: 0,
 			type: "spring",
@@ -103,15 +135,18 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 	);
 
 	return (
-		<motion.div
-			initial="initial"
-			animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
-			variants={mobileNavigationAnimationVariants}
+		<div
 			className={
-				className + " m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome"
+				className +
+				" m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome z-[100]"
 			}
 		>
-			<div className="shadow-soft pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] flex flex-col items-start flex-[1]">
+			<motion.div
+				initial="initial"
+				animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
+				variants={mobileNavigationAnimationVariants}
+				className="shadow-soft pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] flex flex-col items-start flex-[1]"
+			>
 				<PrimaryNavigation orientation="vertical">
 					<PrimaryNavigation.NavigationLinksList>
 						{Array.from(mobileNavigationPrimaryNavigationLinks.values()).map(
@@ -126,8 +161,13 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 						)}
 					</PrimaryNavigation.NavigationLinksList>
 				</PrimaryNavigation>
-			</div>
-			<div className="shadow-soft rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] flex-[0]">
+			</motion.div>
+			<motion.div
+				initial="initial"
+				animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
+				variants={mobileNavigationAnimationVariants2}
+				className="shadow-soft rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] flex-[0]"
+			>
 				<Drawer.Trigger>
 					<SecondaryNavigation
 						className="flex flex-col items-center justify-center tablet:hidden"
@@ -147,8 +187,8 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 						</SecondaryNavigation.NavigationLinksList>
 					</SecondaryNavigation>
 				</Drawer.Trigger>
-			</div>
-		</motion.div>
+			</motion.div>
+		</div>
 	);
 };
 

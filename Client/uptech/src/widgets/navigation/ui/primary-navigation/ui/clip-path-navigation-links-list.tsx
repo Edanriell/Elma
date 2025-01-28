@@ -2,7 +2,7 @@ import React, { type FC, type ReactElement, useRef } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
 
-import { useClipPathNavigationLinksList, usePrimaryNavigationStore } from "../lib";
+import { useClipPathNavigationLinksList, usePrimaryNavigationStore } from "../lib/hooks";
 
 import { ClipPathNavigationLink } from "./clip-path-navigation-link";
 

@@ -22,6 +22,16 @@ const logotypeVariants = {
 				className="w-auto h-auto"
 				priority={true}
 			/>
+		),
+		large: () => (
+			<Image
+				src="/images/vector/logotype-large-light.svg"
+				width={368}
+				height={89}
+				alt="Uptech company logotype"
+				className="w-[368rem] h-[89rem] desktop:w-[1281rem] desktop:h-[312rem]"
+				priority={true}
+			/>
 		)
 	},
 	light: {
@@ -42,6 +52,16 @@ const logotypeVariants = {
 				height={32}
 				alt="Uptech company logotype"
 				className="w-auto h-auto"
+				priority={true}
+			/>
+		),
+		large: () => (
+			<Image
+				src="/images/vector/logotype-large-light.svg"
+				width={368}
+				height={89}
+				alt="Uptech company logotype"
+				className="w-[368rem] h-[89rem] desktop:w-[1281rem] desktop:h-[312rem]"
 				priority={true}
 			/>
 		)

@@ -34,7 +34,7 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 	}
 
 	// Handles click events for elements with `data-content-id`
-	const handleTriggerClick = (contentId: string) => {
+	const handleDrawerOpen = (contentId: string) => {
 		if (!contentId) return;
 		openDrawer(contentId);
 	};
@@ -56,7 +56,7 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 					) => {
 						// Call the original onClick if it exists
 						existingOnClick?.(event);
-						handleTriggerClick(contentId);
+						handleDrawerOpen(contentId);
 					}
 				} as Partial<typeof child.props>);
 				// Explicitly cast new props to match the original type

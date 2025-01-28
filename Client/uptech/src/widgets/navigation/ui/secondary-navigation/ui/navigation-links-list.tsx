@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 import { NavigationLink } from "./navigation-link";
 
-import { useSecondaryNavigationStore } from "../lib";
+import { useSecondaryNavigationStore } from "../lib/hooks";
 
 type NavigationLinksListProps = {
 	children: ReactElement<typeof NavigationLink>[];
