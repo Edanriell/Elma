@@ -6,14 +6,14 @@ import { Logotype } from "@shared/ui/logotype/ui";
 export const Footer: FC = () => {
 	return (
 		<footer className="relative bg-shark-950">
-			<div className="mr-[16rem] ml-[16rem] pt-[80rem] desktop:flex desktop:flex-col">
-				<div className="flex flex-col desktop:flex-row desktop:mx-[auto] desktop:justify-between desktop:max-w-[1248rem] desktop:items-start desktop:mb-[48rem]">
-					<div className="desktop:basis-[477rem]">
+			<div className="mr-[16rem] ml-[16rem] tablet:mr-[48rem] tablet:ml-[48rem] pt-[80rem] desktop:ml-[unset] desktop:mr-[unset] desktop:flex desktop:flex-col">
+				<div className="flex flex-col tablet:flex-row tablet:mx-[auto] tablet:justify-between tablet:max-w-[1048rem] desktop:max-w-[1248rem] tablet:items-start tablet:mb-[48rem]">
+					<div className="tablet:mr-[40rem] tablet:basis-[477rem] desktop:mr-[unset]">
 						<h2 className="text-[40rem] font-medium leading-[125%] text-white-50 mb-[24rem] opacity-[0.9]">
 							Stay Updated on Latest Product Releases
 						</h2>
-						<form className="flex flex-col gap-y-[8rem] mb-[40rem] desktop:flex-row desktop:gap-x-[8rem] desktop:mb-[unset]">
-							<div className="relative w-full desktop:basis-[320rem]">
+						<form className="flex flex-col gap-y-[8rem] mb-[40rem] tablet:flex-row tablet:gap-x-[8rem] tablet:mb-[unset]">
+							<div className="relative w-full tablet:basis-[320rem]">
 								<label className="visually-hidden" htmlFor="email">
 									Enter your email
 								</label>
@@ -26,14 +26,14 @@ export const Footer: FC = () => {
 								/>
 							</div>
 							<button
-								className="rounded-[44rem] bg-white-900 px-[32rem] py-[16rem] max-h-[50rem] font-medium text-[18rem] leading-[100%] capitalize text-white-50 w-full pointer-cursor desktop:basis-[149rem]"
+								className="rounded-[44rem] bg-white-900 px-[32rem] py-[16rem] max-h-[50rem] font-medium text-[18rem] leading-[100%] capitalize text-white-50 w-full pointer-cursor tablet:basis-[149rem]"
 								type="submit"
 							>
 								Subscribe
 							</button>
 						</form>
 					</div>
-					<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem] desktop:basis-[auto] desktop:mb-[unset] desktop:gap-x-[80rem] desktop:gap-y-[80rem]">
+					<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem] tablet:basis-[auto] tablet:mb-[unset] desktop:gap-x-[80rem] desktop:gap-y-[80rem]">
 						<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
 							<header className="relative">
 								<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">
@@ -183,7 +183,10 @@ export const Footer: FC = () => {
 						</div>
 					</nav>
 				</div>
-				<Link className="desktop:mx-[auto]" href="/">
+				<Link
+					className="tablet:mx-[auto] tablet:flex tablet:flex-row tablet:justify-center"
+					href="/"
+				>
 					<Logotype color="light" size="large" />
 				</Link>
 			</div>
