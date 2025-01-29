@@ -29,7 +29,7 @@ const logotypeVariants = {
 				width={368}
 				height={89}
 				alt="Uptech company logotype"
-				className="w-[368rem] h-[89rem] desktop:w-[1281rem] desktop:h-[312rem]"
+				className="w-[368rem] h-[89rem] tablet:w-[1281rem] tablet:h-[312rem]"
 				priority={true}
 			/>
 		)
@@ -61,7 +61,7 @@ const logotypeVariants = {
 				width={368}
 				height={89}
 				alt="Uptech company logotype"
-				className="w-[368rem] h-[89rem] desktop:w-[1281rem] desktop:h-[312rem]"
+				className="w-[368rem] h-[89rem] tablet:w-[1281rem] tablet:h-[312rem]"
 				priority={true}
 			/>
 		)
