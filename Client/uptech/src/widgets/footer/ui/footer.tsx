@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 
 import { Logotype } from "@shared/ui/logotype/ui";
+import { Button } from "@shared/ui/button/ui";
 
 export const Footer: FC = () => {
 	return (
@@ -32,6 +33,12 @@ export const Footer: FC = () => {
 								Subscribe
 							</button>
 						</form>
+						<Button
+							primaryColor={"bg-white-900"}
+							secondaryColor={"bg-alizarin-crimson-950"}
+						>
+							Subscribe
+						</Button>
 					</div>
 					<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem] tablet:basis-[auto] tablet:mb-[unset] desktop:gap-x-[80rem] desktop:gap-y-[80rem]">
 						<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
