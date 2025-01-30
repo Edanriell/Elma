@@ -4,7 +4,9 @@ import { type FC, type ReactNode, useState } from "react";
 import clsx from "clsx";
 import { motion, MotionConfig } from "motion/react";
 
-type Orientation =
+import { generateClipPath } from "../lib/functions";
+
+export type Orientation =
 	| "top-to-bottom"
 	| "bottom-to-top"
 	| "left-to-right"
@@ -21,46 +23,6 @@ type ButtonProps = {
 	type?: "submit" | "button" | "reset";
 	className?: string;
 	orientation?: Orientation;
-};
-
-const generateClipPath = (orientation: Orientation, isActive: boolean) => {
-	const map = {
-		"top-to-bottom": {
-			initial: "inset(0 0 100% 0)",
-			final: "inset(0 0 0 0%)"
-		},
-		"bottom-to-top": {
-			initial: "inset(100% 0 0 0)",
-			final: "inset(0% 0 0 0)"
-		},
-		"left-to-right": {
-			initial: "inset(0 100% 0 0)",
-			final: "inset(0 0% 0 0)"
-		},
-		"right-to-left": {
-			initial: "inset(0 0 0 100%)",
-			final: "inset(0 0 0 0%)"
-		},
-		"top-left-to-bottom-right": {
-			initial: "polygon(0% 0%, 0% 0%, 0% 100%, -50% 100%)",
-			final: "polygon(125% 0%, 0% 0%, 0% 100%, 100% 100%)"
-		},
-		"bottom-right-to-top-left": {
-			initial: "polygon(100% 100%, 100% 100%, 100% 0%, 150% 0%)",
-			final: "polygon(-25% 100%, 100% 100%, 100% 0%, 0% 0%)"
-		},
-		"top-right-to-bottom-left": {
-			initial: "polygon(100% 0%, 100% 0%, 100% 100%, 150% 100%)",
-			final: "polygon(-100% 0%, 100% 0%, 100% 100%, -25% 100%)"
-		},
-		"bottom-left-to-top-right": {
-			initial: "polygon(0% 100%, 0% 100%, 0% 0%, -50% 0%)",
-			final: "polygon(125% 100%, 0% 100%, 0% 0%, 100% 0%)"
-		}
-	};
-
-	const { initial, final } = map[orientation];
-	return isActive ? final : initial;
 };
 
 export const Button: FC<ButtonProps> = ({
@@ -100,10 +62,10 @@ export const Button: FC<ButtonProps> = ({
 				<span className={primaryButtonSpanClasses}>{children}</span>
 				<motion.span
 					initial={{
-						clipPath: generateClipPath(orientation, false)
+						clipPath: generateClipPath({ orientation, isButtonHovered: false })
 					}}
 					animate={{
-						clipPath: generateClipPath(orientation, isButtonHovered)
+						clipPath: generateClipPath({ orientation, isButtonHovered })
 					}}
 					className={secondaryButtonSpanClasses}
 				>
