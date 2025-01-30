@@ -33,10 +33,7 @@ export const Footer: FC = () => {
 								Subscribe
 							</button>
 						</form>
-						<Button
-							primaryColor={"bg-white-900"}
-							secondaryColor={"bg-alizarin-crimson-950"}
-						>
+						<Button primaryColor={"bg-white-900"} secondaryColor={"bg-white-50"}>
 							Subscribe
 						</Button>
 					</div>
