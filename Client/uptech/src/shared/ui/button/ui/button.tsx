@@ -2,7 +2,7 @@
 
 import { type FC, type ReactNode, useState } from "react";
 import clsx from "clsx";
-import { motion, MotionConfig } from "motion/react";
+import { motion, MotionConfig, type Transition } from "motion/react";
 
 import { generateClipPath } from "../lib/functions";
 
@@ -25,6 +25,7 @@ type ButtonProps = {
 	type?: "submit" | "button" | "reset";
 	className?: string;
 	orientation?: Orientation;
+	transitionOptions?: Transition;
 };
 
 export const Button: FC<ButtonProps> = ({
@@ -35,7 +36,8 @@ export const Button: FC<ButtonProps> = ({
 	primaryComponentClasses,
 	secondaryComponentClasses,
 	className,
-	orientation = "top-left-to-bottom-right"
+	orientation = "top-left-to-bottom-right",
+	transitionOptions = { type: "spring", duration: 1, bounce: 0 }
 }) => {
 	const [isButtonHovered, setIsButtonHovered] = useState<boolean>(false);
 
@@ -59,14 +61,14 @@ export const Button: FC<ButtonProps> = ({
 	const handleButtonHover = () => setIsButtonHovered((prev) => !prev);
 
 	return (
-		<MotionConfig transition={{ type: "spring", duration: 1, bounce: 0 }}>
+		<MotionConfig transition={transitionOptions}>
 			<motion.button
 				whileHover={{ scale: 1.05 }}
 				whileTap={{ scale: 0.95 }}
-				type={type}
 				onMouseEnter={handleButtonHover}
 				onMouseLeave={handleButtonHover}
 				className={buttonClasses}
+				type={type}
 			>
 				<span className={primaryButtonComponentClasses}>{children}</span>
 				<motion.span
