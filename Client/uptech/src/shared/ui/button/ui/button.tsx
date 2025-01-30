@@ -1,45 +1,31 @@
 "use client";
 
-import { type FC, type ReactNode, useEffect, useState } from "react";
+import { type FC, type ReactNode, useState } from "react";
 import clsx from "clsx";
-import { motion } from "motion/react";
+import { motion, MotionConfig, type Transition } from "motion/react";
 
-type Orientation = "top-to-bottom" | "bottom-to-top" | "left-to-right" | "right-to-left";
+import { generateClipPath } from "../lib/functions";
+
+export type Orientation =
+	| "top-to-bottom"
+	| "bottom-to-top"
+	| "left-to-right"
+	| "right-to-left"
+	| "top-left-to-bottom-right"
+	| "bottom-right-to-top-left"
+	| "top-right-to-bottom-left"
+	| "bottom-left-to-top-right";
 
 type ButtonProps = {
 	children: ReactNode;
 	primaryColor: string;
 	secondaryColor: string;
+	primaryComponentClasses?: string;
+	secondaryComponentClasses?: string;
 	type?: "submit" | "button" | "reset";
 	className?: string;
 	orientation?: Orientation;
-};
-
-// Grab the correct initial/final clip-paths for color2 based on orientation
-const getClipPaths = (orientation: Orientation, isActive: boolean) => {
-	// Each orientation’s “initial” clip path is fully hidden from one side,
-	// while “final” reveals the entire element.
-	const map = {
-		"top-to-bottom": {
-			initial: "inset(100% 0 0 0)", // hidden from top
-			final: "inset(0% 0 0 0)" // fully visible
-		},
-		"bottom-to-top": {
-			initial: "inset(0 0 100% 0)", // hidden from bottom
-			final: "inset(0 0 0% 0)"
-		},
-		"left-to-right": {
-			initial: "inset(0 100% 0 0)", // hidden from left
-			final: "inset(0 0% 0 0)"
-		},
-		"right-to-left": {
-			initial: "inset(0 0 0 100%)", // hidden from right
-			final: "inset(0 0 0 0%)"
-		}
-	};
-
-	const { initial, final } = map[orientation];
-	return isActive ? final : initial;
+	transitionOptions?: Transition;
 };
 
 export const Button: FC<ButtonProps> = ({
@@ -47,61 +33,56 @@ export const Button: FC<ButtonProps> = ({
 	type = "button",
 	primaryColor,
 	secondaryColor,
+	primaryComponentClasses,
+	secondaryComponentClasses,
 	className,
-	orientation = "top-to-bottom" // default orientation
+	orientation = "top-left-to-bottom-right",
+	transitionOptions = { type: "spring", duration: 1, bounce: 0 }
 }) => {
-	const [buttonState, setButtonState] = useState<boolean>(false);
-	const [animationKey, setAnimationKey] = useState(0);
+	const [isButtonHovered, setIsButtonHovered] = useState<boolean>(false);
 
-	// Styles for the first (primary) color
-	const color1 = clsx(
-		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 max-h-[50rem] w-full tablet:basis-[149rem] block",
-		className,
+	const buttonClasses = clsx(
+		"max-h-[50rem] w-full h-[50rem] tablet:basis-[149rem] rounded-[44rem] font-medium text-[18rem] leading-[100%] capitalize cursor-pointer relative overflow-hidden",
+		className
+	);
+
+	const primaryButtonComponentClasses = clsx(
+		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		primaryComponentClasses,
 		primaryColor
 	);
 
-	// Styles for the second (secondary) color (red in your example)
-	const color2 = clsx(
-		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
-		className,
+	const secondaryButtonComponentClasses = clsx(
+		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		secondaryComponentClasses,
 		secondaryColor
 	);
 
-	const handleHover = () => {
-		setButtonState((prev) => !prev);
-		setAnimationKey((prev) => prev + 1);
-	};
-
-	useEffect(() => {
-		console.log(buttonState);
-	}, [buttonState]);
+	const handleButtonHover = () => setIsButtonHovered((prev) => !prev);
 
 	return (
-		<button
-			type={type}
-			onMouseEnter={handleHover}
-			onMouseLeave={handleHover}
-			className="max-h-[50rem] w-full h-[50rem] tablet:basis-[149rem] rounded-[44rem] font-medium text-[18rem] leading-[100%] capitalize text-white-50 pointer-cursor relative"
-		>
-			{/* COLOR 1 (primary) */}
-			<motion.span
-				initial={{ clipPath: "inset(0 0 100% 0)" }}
-				animate={{ clipPath: buttonState ? "inset(0 0 -100% 0)" : "inset(0 0 0% 0)" }}
-				transition={{ duration: 5 }}
-				className={color1}
+		<MotionConfig transition={transitionOptions}>
+			<motion.button
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
+				onMouseEnter={handleButtonHover}
+				onMouseLeave={handleButtonHover}
+				className={buttonClasses}
+				type={type}
 			>
-				{children}
-			</motion.span>
-
-			{/* COLOR 2 (secondary) with orientation-based clip-path */}
-			<motion.span
-				initial={{ clipPath: getClipPaths(orientation, false) }}
-				animate={{ clipPath: getClipPaths(orientation, buttonState) }}
-				transition={{ duration: 5 }}
-				className={color2}
-			>
-				{children}
-			</motion.span>
-		</button>
+				<span className={primaryButtonComponentClasses}>{children}</span>
+				<motion.span
+					initial={{
+						clipPath: generateClipPath({ orientation, isButtonHovered: false })
+					}}
+					animate={{
+						clipPath: generateClipPath({ orientation, isButtonHovered })
+					}}
+					className={secondaryButtonComponentClasses}
+				>
+					{children}
+				</motion.span>
+			</motion.button>
+		</MotionConfig>
 	);
 };
