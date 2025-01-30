@@ -20,6 +20,8 @@ type ButtonProps = {
 	children: ReactNode;
 	primaryColor: string;
 	secondaryColor: string;
+	primaryComponentClasses?: string;
+	secondaryComponentClasses?: string;
 	type?: "submit" | "button" | "reset";
 	className?: string;
 	orientation?: Orientation;
@@ -30,20 +32,27 @@ export const Button: FC<ButtonProps> = ({
 	type = "button",
 	primaryColor,
 	secondaryColor,
+	primaryComponentClasses,
+	secondaryComponentClasses,
 	className,
 	orientation = "top-left-to-bottom-right"
 }) => {
 	const [isButtonHovered, setIsButtonHovered] = useState<boolean>(false);
 
-	const primaryButtonSpanClasses = clsx(
-		"text-white-50 rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 max-h-[50rem] w-full tablet:basis-[149rem] block",
-		className,
+	const buttonClasses = clsx(
+		"max-h-[50rem] w-full h-[50rem] tablet:basis-[149rem] rounded-[44rem] font-medium text-[18rem] leading-[100%] capitalize cursor-pointer relative overflow-hidden",
+		className
+	);
+
+	const primaryButtonComponentClasses = clsx(
+		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		primaryComponentClasses,
 		primaryColor
 	);
 
-	const secondaryButtonSpanClasses = clsx(
-		"text-shark-950 rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
-		className,
+	const secondaryButtonComponentClasses = clsx(
+		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		secondaryComponentClasses,
 		secondaryColor
 	);
 
@@ -57,9 +66,9 @@ export const Button: FC<ButtonProps> = ({
 				type={type}
 				onMouseEnter={handleButtonHover}
 				onMouseLeave={handleButtonHover}
-				className="max-h-[50rem] w-full h-[50rem] tablet:basis-[149rem] rounded-[44rem] font-medium text-[18rem] leading-[100%] capitalize cursor-pointer relative overflow-hidden"
+				className={buttonClasses}
 			>
-				<span className={primaryButtonSpanClasses}>{children}</span>
+				<span className={primaryButtonComponentClasses}>{children}</span>
 				<motion.span
 					initial={{
 						clipPath: generateClipPath({ orientation, isButtonHovered: false })
@@ -67,7 +76,7 @@ export const Button: FC<ButtonProps> = ({
 					animate={{
 						clipPath: generateClipPath({ orientation, isButtonHovered })
 					}}
-					className={secondaryButtonSpanClasses}
+					className={secondaryButtonComponentClasses}
 				>
 					{children}
 				</motion.span>
