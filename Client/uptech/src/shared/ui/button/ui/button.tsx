@@ -47,13 +47,13 @@ export const Button: FC<ButtonProps> = ({
 	);
 
 	const primaryButtonComponentClasses = clsx(
-		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		"px-[32rem] py-[16rem] absolute inset-0",
 		primaryComponentClasses,
 		primaryColor
 	);
 
 	const secondaryButtonComponentClasses = clsx(
-		"rounded-[44rem] px-[32rem] py-[16rem] absolute inset-0 top-0 left-0 w-full max-h-[50rem] tablet:basis-[149rem] block",
+		"px-[32rem] py-[16rem] absolute inset-0",
 		secondaryComponentClasses,
 		secondaryColor
 	);

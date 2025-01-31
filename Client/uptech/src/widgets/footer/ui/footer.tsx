@@ -26,21 +26,17 @@ export const Footer: FC = () => {
 									className="border-solid border-[1rem] border-white-900 rounded-[46rem] px-[24rem] py-[14rem] max-h-[52rem] bg-white-950 text-[16rem] font-light leading-[150%] text-white-50 placeholder:text-[#FFFFFFCC] w-full"
 								/>
 							</div>
-							<button
-								className="rounded-[44rem] bg-white-900 px-[32rem] py-[16rem] max-h-[50rem] font-medium text-[18rem] leading-[100%] capitalize text-white-50 w-full pointer-cursor tablet:basis-[149rem]"
+							<Button
+								primaryColor="bg-white-900"
+								primaryComponentClasses="text-white-50"
+								secondaryColor="bg-white-50"
+								secondaryComponentClasses="text-shark-950"
+								transitionOptions={{ type: "spring", duration: 0.65, bounce: 0 }}
 								type="submit"
 							>
 								Subscribe
-							</button>
+							</Button>
 						</form>
-						<Button
-							primaryColor="bg-white-900"
-							primaryComponentClasses="text-white-50"
-							secondaryColor="bg-white-50"
-							secondaryComponentClasses="text-shark-950"
-						>
-							Subscribe
-						</Button>
 					</div>
 					<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem] tablet:basis-[auto] tablet:mb-[unset] desktop:gap-x-[80rem] desktop:gap-y-[80rem]">
 						<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">
