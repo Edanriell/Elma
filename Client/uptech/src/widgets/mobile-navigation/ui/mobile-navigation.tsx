@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef, type FC } from "react";
+import { type ComponentPropsWithoutRef, type FC, useRef } from "react";
 import { motion, type MotionProps, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
 
@@ -16,6 +16,7 @@ import { useHeaderStore } from "@widgets/header/model";
 import { Icon } from "@shared/ui/icon/ui";
 
 import { MobileNavigationTrigger } from "./mobile-navigation-trigger";
+import clsx from "clsx";
 
 type MobileNavigationComponents = {
 	Trigger: typeof MobileNavigationTrigger;
@@ -134,17 +135,29 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 		({ mobileNavigationState }) => mobileNavigationState
 	);
 
+	const mobileNavigationRef = useRef<HTMLDivElement | null>(null);
+
+	const mobileNavigationClasses = clsx(
+		"m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome",
+		{
+			[className!]: className
+		}
+	);
+
 	return (
-		<div
-			className={
-				className +
-				" m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome z-[100]"
-			}
-		>
+		<div ref={mobileNavigationRef} className={mobileNavigationClasses}>
 			<motion.div
 				initial="initial"
 				animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
 				variants={mobileNavigationAnimationVariants}
+				onAnimationStart={() => {
+					if (mobileNavigationState === "opened")
+						mobileNavigationRef.current?.classList.add("z-[30]");
+				}}
+				onAnimationComplete={() => {
+					if (mobileNavigationState === "closed")
+						mobileNavigationRef.current?.classList.remove("z-[30]");
+				}}
 				className="shadow-soft pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] flex flex-col items-start flex-[1]"
 			>
 				<PrimaryNavigation orientation="vertical">

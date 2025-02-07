@@ -14,6 +14,7 @@ export const DrawerRoot: FC = () => {
 		if (!drawerRoot) {
 			const rootElement = document.createElement("div");
 			rootElement.id = "drawer-root";
+			rootElement.className = "relative z-[20]";
 			document.body.appendChild(rootElement);
 		}
 	}, []);
