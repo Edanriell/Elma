@@ -19,7 +19,19 @@ import { Icon } from "@shared/ui/icon/ui";
 
 import { useStickyHeader } from "../lib/hooks";
 
-const stickyHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
+type StickyHeaderPrimaryNavigationLinkNames =
+	| "home"
+	| "catalogue"
+	| "collections"
+	| "popular"
+	| "contacts";
+
+type StickyHeaderSecondaryNavigationLinkNames = "search" | "profile" | "cart";
+
+const stickyHeaderPrimaryNavigationLinks = new Map<
+	StickyHeaderPrimaryNavigationLinkNames,
+	PrimaryNavigationLink
+>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
 	["catalogue", { id: uuidv4(), name: "Catalogue", href: "#" }],
 	["collections", { id: uuidv4(), name: "Collections", href: "#" }],
@@ -27,7 +39,10 @@ const stickyHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink
 	["contacts", { id: uuidv4(), name: "Contacts", href: "#" }]
 ]);
 
-const stickyHeaderSecondaryNavigationLinks = new Map<string, SecondaryNavigationLink>([
+const stickyHeaderSecondaryNavigationLinks = new Map<
+	StickyHeaderSecondaryNavigationLinkNames,
+	SecondaryNavigationLink
+>([
 	[
 		"search",
 		{

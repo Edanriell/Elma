@@ -1,6 +1,7 @@
 import { type ComponentPropsWithoutRef, type FC, useRef } from "react";
 import { motion, type MotionProps, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
+import clsx from "clsx";
 
 import { Drawer } from "@widgets/drawer/ui";
 import {
@@ -16,7 +17,6 @@ import { useHeaderStore } from "@widgets/header/model";
 import { Icon } from "@shared/ui/icon/ui";
 
 import { MobileNavigationTrigger } from "./mobile-navigation-trigger";
-import clsx from "clsx";
 
 type MobileNavigationComponents = {
 	Trigger: typeof MobileNavigationTrigger;
