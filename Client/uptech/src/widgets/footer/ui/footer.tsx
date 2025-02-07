@@ -9,7 +9,9 @@ import {
 import { Logotype } from "@shared/ui/logotype/ui";
 import { Button } from "@shared/ui/button/ui";
 
-const footerNavigationLinks = new Map<string, Array<FooterNavigationLink>>([
+type FooterNavigationLinksGroups = "Pages" | "Support" | "Social Media";
+
+const footerNavigationLinks = new Map<FooterNavigationLinksGroups, Array<FooterNavigationLink>>([
 	[
 		"Pages",
 		[
@@ -94,155 +96,6 @@ export const Footer: FC = () => {
 							)
 						)}
 					</FooterNavigation>
-					{/*<nav className="relative flex flex-row gap-x-[40rem] gap-y-[40rem] flex-wrap mb-[40rem] tablet:basis-[auto] tablet:mb-[unset] desktop:gap-x-[80rem] desktop:gap-y-[80rem]">*/}
-					{/*	<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">*/}
-					{/*		<header className="relative">*/}
-					{/*			<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">*/}
-					{/*				Pages*/}
-					{/*			</h3>*/}
-					{/*		</header>*/}
-					{/*		<ul className="flex flex-col ml-[-16rem]">*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					About Us*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Categories*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Catalogue*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Testimonials*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Articles & Blogs*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*		</ul>*/}
-					{/*	</div>*/}
-					{/*	<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">*/}
-					{/*		<header className="relative">*/}
-					{/*			<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">*/}
-					{/*				Support*/}
-					{/*			</h3>*/}
-					{/*		</header>*/}
-					{/*		<ul className="flex flex-col ml-[-16rem]">*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					FAQs*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Product*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Contact*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Privacy Policy*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Terms & Conditions*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*		</ul>*/}
-					{/*	</div>*/}
-					{/*	<div className="flex flex-col gap-y-[24rem] flex-grow-0 flex-shrink-0">*/}
-					{/*		<header className="relative">*/}
-					{/*			<h3 className="font-medium text-[20rem] leading-[125%] text-[#FFFFFFE5]">*/}
-					{/*				Social Media*/}
-					{/*			</h3>*/}
-					{/*		</header>*/}
-					{/*		<ul className="flex flex-col ml-[-16rem]">*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Linkedin*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Twitter*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Instagram*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Facebook*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*			<li className="relative">*/}
-					{/*				<Link*/}
-					{/*					className="font-medium text-[16rem] leading-[125%] text-white-50 pl-[16rem] pr-[16rem] pt-[8rem] pb-[8rem] inline-block opacity-[0.6]"*/}
-					{/*					href="#"*/}
-					{/*				>*/}
-					{/*					Pinterest*/}
-					{/*				</Link>*/}
-					{/*			</li>*/}
-					{/*		</ul>*/}
-					{/*	</div>*/}
-					{/*</nav>*/}
 				</div>
 				<Link
 					className="tablet:mx-[auto] tablet:flex tablet:flex-row tablet:justify-center"

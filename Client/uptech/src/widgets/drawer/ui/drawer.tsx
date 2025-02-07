@@ -1,4 +1,11 @@
-import React, { type FC, Fragment, type ReactElement, useLayoutEffect } from "react";
+import {
+	Children,
+	type FC,
+	Fragment,
+	isValidElement,
+	type ReactElement,
+	useLayoutEffect
+} from "react";
 
 import { DrawerProvider } from "../model";
 import { useDrawerStore } from "../lib/hooks";
@@ -41,10 +48,12 @@ export const Drawer: Drawer = ({
 		});
 	}, [max, width, height, position]);
 
-	React.Children.forEach(children, (child) => {
-		if (!(React.isValidElement(child) && child.type === DrawerContent)) {
+	Children.forEach(children, (child) => {
+		if (!(isValidElement(child) && child.type === DrawerContent)) {
 			throw new Error(
-				`Invalid child component: ${child.type}. Expected child component Drawer.Content`
+				`<Drawer> children must be a valid <Drawer.Content> component. ` +
+					`Invalid child component detected: ${child.type}. ` +
+					`Ensure that all children passed to <Drawer> are instances of <Drawer.Content>.`
 			);
 		}
 	});

@@ -1,4 +1,12 @@
-import React, { type FC, Fragment, type MouseEvent, type ReactNode } from "react";
+import {
+	Children,
+	cloneElement,
+	type FC,
+	Fragment,
+	isValidElement,
+	type MouseEvent,
+	type ReactNode
+} from "react";
 
 import { useDrawerStore } from "../lib/hooks";
 
@@ -11,8 +19,8 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 
 	// Validates that children have a valid `data-content-id` attribute
 	const validateChildren = (nodes: ReactNode): boolean => {
-		return React.Children.toArray(nodes).some((node) => {
-			if (!React.isValidElement(node)) return false;
+		return Children.toArray(nodes).some((node) => {
+			if (!isValidElement(node)) return false;
 
 			if (node.props?.["data-content-id"]) {
 				return true;
@@ -29,7 +37,8 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 	// Throw error if validation fails
 	if (!validateChildren(children)) {
 		throw new Error(
-			`All children of Trigger must have a "data-content-id" attribute, either directly or nested.`
+			`<Drawer.Trigger> must contain at least one child with a "data-content-id" attribute. ` +
+				`This attribute is required for identifying drawer content and must exist either directly at the top level or nested within child components.`
 		);
 	}
 
@@ -41,8 +50,8 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 
 	// Recursively processes child nodes
 	const renderChildren = (nodes: ReactNode): ReactNode => {
-		return React.Children.map(nodes, (child) => {
-			if (!React.isValidElement(child)) {
+		return Children.map(nodes, (child) => {
+			if (!isValidElement(child)) {
 				return child;
 			}
 
@@ -50,7 +59,7 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 			const existingOnClick = child.props?.onClick;
 
 			if (contentId) {
-				return React.cloneElement(child, {
+				return cloneElement(child, {
 					onClick: (
 						event: MouseEvent<HTMLButtonElement | HTMLDivElement | HTMLAnchorElement>
 					) => {
@@ -64,7 +73,7 @@ export const DrawerTrigger: FC<DrawerTriggerProps> = ({ children }) => {
 
 			// Recursively process nested children
 			if (child.props?.children) {
-				return React.cloneElement(child, {
+				return cloneElement(child, {
 					children: renderChildren(child.props.children)
 				} as Partial<typeof child.props>);
 				// Explicitly cast new props to match the original type
