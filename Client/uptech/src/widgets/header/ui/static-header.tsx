@@ -15,7 +15,19 @@ import {
 import { Logotype } from "@shared/ui/logotype/ui";
 import { Icon } from "@shared/ui/icon/ui";
 
-const staticHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
+type StaticHeaderPrimaryNavigationLinkNames =
+	| "home"
+	| "catalogue"
+	| "collections"
+	| "popular"
+	| "contacts";
+
+type StaticHeaderSecondaryNavigationLinkNames = "search" | "profile" | "cart";
+
+const staticHeaderPrimaryNavigationLinks = new Map<
+	StaticHeaderPrimaryNavigationLinkNames,
+	PrimaryNavigationLink
+>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
 	["catalogue", { id: uuidv4(), name: "Catalogue", href: "#" }],
 	["collections", { id: uuidv4(), name: "Collections", href: "#" }],
@@ -23,7 +35,10 @@ const staticHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink
 	["contacts", { id: uuidv4(), name: "Contacts", href: "#" }]
 ]);
 
-const staticHeaderSecondaryNavigationLinks = new Map<string, SecondaryNavigationLink>([
+const staticHeaderSecondaryNavigationLinks = new Map<
+	StaticHeaderSecondaryNavigationLinkNames,
+	SecondaryNavigationLink
+>([
 	[
 		"search",
 		{
@@ -52,7 +67,7 @@ const staticHeaderSecondaryNavigationLinks = new Map<string, SecondaryNavigation
 
 export const StaticHeader: FC = () => {
 	return (
-		<header className="pl-[32rem] pr-[32rem] mt-[24rem] mb-[24rem] flex-row items-center justify-between max-h-[80rem] hidden tablet:flex">
+		<header className="pl-[32rem] pr-[32rem] mt-[24rem] mb-[24rem] flex-row items-center justify-between max-h-[80rem] hidden tablet:flex relative z-[20]">
 			<Link href="/">
 				<Logotype size="medium" color="dark" />
 			</Link>

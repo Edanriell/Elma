@@ -1,6 +1,7 @@
-import { type ComponentPropsWithoutRef, type FC } from "react";
+import { type ComponentPropsWithoutRef, type FC, useRef } from "react";
 import { motion, type MotionProps, type Variants } from "motion/react";
 import { v4 as uuidv4 } from "uuid";
+import clsx from "clsx";
 
 import { Drawer } from "@widgets/drawer/ui";
 import {
@@ -28,7 +29,19 @@ type MobileNavigationProps = {
 
 type MobileNavigation = FC<MobileNavigationProps> & MobileNavigationComponents;
 
-const mobileNavigationPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
+type MobileNavigationPrimaryNavigationLinkNames =
+	| "home"
+	| "catalogue"
+	| "collections"
+	| "popular"
+	| "contacts";
+
+type MobileNavigationSecondaryNavigationLinkNames = "search" | "profile" | "cart";
+
+const mobileNavigationPrimaryNavigationLinks = new Map<
+	MobileNavigationPrimaryNavigationLinkNames,
+	PrimaryNavigationLink
+>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
 	["catalogue", { id: uuidv4(), name: "Catalogue", href: "#" }],
 	["collections", { id: uuidv4(), name: "Collections", href: "#" }],
@@ -36,7 +49,10 @@ const mobileNavigationPrimaryNavigationLinks = new Map<string, PrimaryNavigation
 	["contacts", { id: uuidv4(), name: "Contacts", href: "#" }]
 ]);
 
-const mobileNavigationSecondaryNavigationLinks = new Map<string, SecondaryNavigationLink>([
+const mobileNavigationSecondaryNavigationLinks = new Map<
+	MobileNavigationSecondaryNavigationLinkNames,
+	SecondaryNavigationLink
+>([
 	[
 		"search",
 		{
@@ -134,17 +150,29 @@ export const MobileNavigation: MobileNavigation = ({ className }) => {
 		({ mobileNavigationState }) => mobileNavigationState
 	);
 
+	const mobileNavigationRef = useRef<HTMLDivElement | null>(null);
+
+	const mobileNavigationClasses = clsx(
+		"m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome",
+		{
+			[className!]: className
+		}
+	);
+
 	return (
-		<div
-			className={
-				className +
-				" m-[16rem] flex flex-row gap-x-[16rem] w-fill-firefox w-fill-chrome z-[100]"
-			}
-		>
+		<div ref={mobileNavigationRef} className={mobileNavigationClasses}>
 			<motion.div
 				initial="initial"
 				animate={mobileNavigationState === "opened" ? "visible" : "hidden"}
 				variants={mobileNavigationAnimationVariants}
+				onAnimationStart={() => {
+					if (mobileNavigationState === "opened")
+						mobileNavigationRef.current?.classList.add("z-[30]");
+				}}
+				onAnimationComplete={() => {
+					if (mobileNavigationState === "closed")
+						mobileNavigationRef.current?.classList.remove("z-[30]");
+				}}
 				className="shadow-soft pt-[18rem] pr-[16rem] pb-[18rem] pl-[16rem] rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] flex flex-col items-start flex-[1]"
 			>
 				<PrimaryNavigation orientation="vertical">

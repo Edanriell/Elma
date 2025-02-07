@@ -1,4 +1,4 @@
-import React, { type FC, type ReactNode, useLayoutEffect } from "react";
+import React, { type FC, isValidElement, type ReactNode, useLayoutEffect } from "react";
 
 import { useDrawerStore } from "../lib/hooks";
 
@@ -11,16 +11,28 @@ export const DrawerContent: FC<DrawerContentProps> = ({ children }) => {
 
 	useLayoutEffect(() => {
 		const processedChildren = React.Children.toArray(children).map((child) => {
-			if (!React.isValidElement(child)) {
+			if (!isValidElement(child)) {
 				throw new Error(
-					`Invalid child: All children of <Drawer.Content> must be valid React elements.`
+					`<Drawer.Content> only accepts valid React elements as children. ` +
+						`Encountered an invalid child: ${typeof child}.`
 				);
 			}
 
-			// Ensure `data-content-id` exists
+			// Type-safe extraction of the component name (handles string types and functional/class components)
+			const childComponentName =
+				typeof child.type === "string" // Native DOM elements like "div" or "span"
+					? child.type
+					: typeof child.type === "function" || typeof child.type === "object"
+						? (child.type as React.FC).displayName ||
+							(child.type as React.FC).name ||
+							"Unknown"
+						: "Unknown";
+
+			// Check if the required `data-content-id` attribute is present
 			if (!child.props?.["data-content-id"]) {
 				throw new Error(
-					`Each child of <Drawer.Content> must have a "data-content-id" attribute. Missing in child: ${child.type}`
+					`Each child of <Drawer.Content> must have a "data-content-id" attribute. ` +
+						`The child component "${childComponentName}" is missing this attribute.`
 				);
 			}
 

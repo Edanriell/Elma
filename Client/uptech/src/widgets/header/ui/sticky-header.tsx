@@ -19,7 +19,19 @@ import { Icon } from "@shared/ui/icon/ui";
 
 import { useStickyHeader } from "../lib/hooks";
 
-const stickyHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
+type StickyHeaderPrimaryNavigationLinkNames =
+	| "home"
+	| "catalogue"
+	| "collections"
+	| "popular"
+	| "contacts";
+
+type StickyHeaderSecondaryNavigationLinkNames = "search" | "profile" | "cart";
+
+const stickyHeaderPrimaryNavigationLinks = new Map<
+	StickyHeaderPrimaryNavigationLinkNames,
+	PrimaryNavigationLink
+>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
 	["catalogue", { id: uuidv4(), name: "Catalogue", href: "#" }],
 	["collections", { id: uuidv4(), name: "Collections", href: "#" }],
@@ -27,7 +39,10 @@ const stickyHeaderPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink
 	["contacts", { id: uuidv4(), name: "Contacts", href: "#" }]
 ]);
 
-const stickyHeaderSecondaryNavigationLinks = new Map<string, SecondaryNavigationLink>([
+const stickyHeaderSecondaryNavigationLinks = new Map<
+	StickyHeaderSecondaryNavigationLinkNames,
+	SecondaryNavigationLink
+>([
 	[
 		"search",
 		{
@@ -84,7 +99,7 @@ export const StickyHeader: FC = () => {
 		<motion.header
 			animate={animationControls}
 			variants={stickyHeaderAnimationVariants}
-			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:max-h-[80rem] tablet:invisible z-[100]"
+			className="shadow-soft pt-[18rem] pr-[24rem] pb-[18rem] pl-[16rem] flex flex-row items-center rounded-[8rem] bg-[var(--white-transparent-10)] backdrop-blur-[40rem] m-[16rem] fixed top-0 left-0 w-fill-chrome w-fill-firefox max-h-[64rem] justify-between tablet:max-h-[80rem] tablet:invisible z-[30]"
 			role="banner"
 			aria-label="Sticky header"
 		>

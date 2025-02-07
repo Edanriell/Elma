@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import { Children, type FC, isValidElement, type ReactElement } from "react";
 
 import { PrimaryNavigationProvider } from "../model";
 
@@ -35,12 +35,16 @@ export const PrimaryNavigation: PrimaryNavigation = ({
 	orientation = "horizontal",
 	children
 }) => {
-	if (!React.isValidElement(children) || children.type !== NavigationLinksList) {
-		throw new Error(`PrimaryNavigation must have exactly one child: NavigationLinksList.`);
+	if (!isValidElement(children) || children.type !== NavigationLinksList) {
+		throw new Error(
+			`The "PrimaryNavigation" component requires its child to be of type "NavigationLinksList". ` +
+				`This means that "PrimaryNavigation" must have exactly one child element: ` +
+				`<NavigationLinksList> with "NavigationLink" components as its children.`
+		);
 	}
 
-	const clipPathLinks = React.Children.map(children.props.children, (child) => {
-		if (React.isValidElement(child) && child.type === NavigationLink) {
+	const clipPathLinks = Children.map(children.props.children, (child) => {
+		if (isValidElement(child) && child.type === NavigationLink) {
 			const { id, name, href, icon } = child.props as unknown as NavigationLinkProps;
 			return <ClipPathNavigationLink key={id} id={id} name={name} href={href} icon={icon} />;
 		}
