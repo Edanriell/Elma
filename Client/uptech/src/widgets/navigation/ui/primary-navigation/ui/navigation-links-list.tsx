@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement } from "react";
+import { Children, type FC, isValidElement, type ReactElement } from "react";
 import clsx from "clsx";
 
 import { usePrimaryNavigationStore } from "../lib/hooks";
@@ -12,9 +12,15 @@ type NavigationLinksListProps = {
 export const NavigationLinksList: FC<NavigationLinksListProps> = ({ children }) => {
 	const { orientationRef, globalClassesRef } = usePrimaryNavigationStore();
 
-	React.Children.forEach(children, (child) => {
-		if (!(React.isValidElement(child) && child.type === NavigationLink)) {
-			throw new Error(`Invalid child component: ${child.type}. Expected NavigationLink.`);
+	Children.forEach(children, (child) => {
+		if (!(isValidElement(child) && child.type === NavigationLink)) {
+			const childType =
+				isValidElement(child) && child.type ? child.type.toString() : typeof child;
+
+			throw new Error(
+				`<NavigationLinksList> only accepts children of type <NavigationLink>. ` +
+					`Received an invalid child of type "${childType}". Please ensure that all children are valid <NavigationLink> components.`
+			);
 		}
 	});
 

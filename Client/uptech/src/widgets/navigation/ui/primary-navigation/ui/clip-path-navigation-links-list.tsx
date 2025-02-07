@@ -1,4 +1,4 @@
-import React, { type FC, type ReactElement, useRef } from "react";
+import { Children, type FC, isValidElement, type ReactElement, useRef } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
 
@@ -23,10 +23,15 @@ export const ClipPathNavigationLinksList: FC<ClipPathNavigationLinksListProps> =
 		orientationRef.current!
 	);
 
-	React.Children.forEach(children, (child) => {
-		if (!(React.isValidElement(child) && child.type === ClipPathNavigationLink)) {
+	Children.forEach(children, (child) => {
+		if (!(isValidElement(child) && child.type === ClipPathNavigationLink)) {
+			const childType =
+				isValidElement(child) && child.type ? child.type.toString() : typeof child;
+
 			throw new Error(
-				`Invalid child component: ${child.type}. Expected ClipPathNavigationLink.`
+				`<ClipPathNavigationLinksList> only accepts children of type <ClipPathNavigationLink>. ` +
+					`Received an invalid child of type "${childType}". ` +
+					`Please ensure that all children passed to <ClipPathNavigationLinksList> are valid <ClipPathNavigationLink> components.`
 			);
 		}
 	});
