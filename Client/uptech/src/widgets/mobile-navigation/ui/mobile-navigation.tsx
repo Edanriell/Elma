@@ -29,7 +29,19 @@ type MobileNavigationProps = {
 
 type MobileNavigation = FC<MobileNavigationProps> & MobileNavigationComponents;
 
-const mobileNavigationPrimaryNavigationLinks = new Map<string, PrimaryNavigationLink>([
+type MobileNavigationPrimaryNavigationLinkNames =
+	| "home"
+	| "catalogue"
+	| "collections"
+	| "popular"
+	| "contacts";
+
+type MobileNavigationSecondaryNavigationLinkNames = "search" | "profile" | "cart";
+
+const mobileNavigationPrimaryNavigationLinks = new Map<
+	MobileNavigationPrimaryNavigationLinkNames,
+	PrimaryNavigationLink
+>([
 	["home", { id: uuidv4(), name: "Home", href: "#" }],
 	["catalogue", { id: uuidv4(), name: "Catalogue", href: "#" }],
 	["collections", { id: uuidv4(), name: "Collections", href: "#" }],
@@ -37,7 +49,10 @@ const mobileNavigationPrimaryNavigationLinks = new Map<string, PrimaryNavigation
 	["contacts", { id: uuidv4(), name: "Contacts", href: "#" }]
 ]);
 
-const mobileNavigationSecondaryNavigationLinks = new Map<string, SecondaryNavigationLink>([
+const mobileNavigationSecondaryNavigationLinks = new Map<
+	MobileNavigationSecondaryNavigationLinkNames,
+	SecondaryNavigationLink
+>([
 	[
 		"search",
 		{
