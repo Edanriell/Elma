@@ -1,4 +1,4 @@
-import React, { type FC, type JSX, type ReactElement } from "react";
+import { Children, type FC, isValidElement, type JSX, type ReactElement } from "react";
 
 import { SecondaryNavigationProvider } from "../model";
 
@@ -30,10 +30,15 @@ export const SecondaryNavigation: SecondaryNavigation = ({
 	orientation = "horizontal",
 	children
 }) => {
-	React.Children.forEach(children, (child) => {
-		if (!(React.isValidElement(child) && child.type === NavigationLinksList)) {
+	Children.forEach(children, (child) => {
+		if (!(isValidElement(child) && child.type === NavigationLinksList)) {
+			const childType =
+				isValidElement(child) && child.type ? child.type.toString() : typeof child;
+
 			throw new Error(
-				`Invalid child component: ${child.type}. Expected NavigationLinksList.`
+				`<SecondaryNavigation> requires its child to be of type <NavigationLinksList>. ` +
+					`Received an invalid child of type "${childType}". ` +
+					`Please ensure that the direct child of <SecondaryNavigation> is a valid <NavigationLinksList> component.`
 			);
 		}
 	});
