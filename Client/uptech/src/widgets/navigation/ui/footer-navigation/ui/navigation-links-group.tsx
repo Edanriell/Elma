@@ -8,8 +8,12 @@ type NavigationLinksGroupProps = {
 };
 
 export const NavigationLinksGroup: FC<NavigationLinksGroupProps> = ({ name, children }) => {
-	if (isValidElement(children) || children.type !== NavigationLinksList) {
-		throw new Error(`NavigationLinksGroup must have exactly one child: NavigationLinksList.`);
+	if (!(isValidElement(children) && children.type === NavigationLinksList)) {
+		throw new Error(
+			`<NavigationLinksGroup> expects exactly one child of type <NavigationLinksList>. ` +
+				`You might have passed an invalid child, no child, or multiple children. ` +
+				`Ensure a single <NavigationLinksList> component is passed as a direct child.`
+		);
 	}
 
 	return (

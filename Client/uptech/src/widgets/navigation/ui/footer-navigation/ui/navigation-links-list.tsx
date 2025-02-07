@@ -3,18 +3,21 @@ import { type FC, isValidElement, type ReactElement } from "react";
 import { NavigationLink } from "./navigation-link";
 
 type NavigationLinksListProps = {
-	children: ReactElement;
+	children: ReactElement<typeof NavigationLink> | ReactElement<typeof NavigationLink>[];
 };
 
 export const NavigationLinksList: FC<NavigationLinksListProps> = ({ children }) => {
 	if (
 		!(
-			Array.isArray(children) &&
-			children.every((child) => isValidElement(child) && child.type === NavigationLink)
+			(isValidElement(children) && children.type === NavigationLink) || // Single child case
+			(Array.isArray(children) && // Multiple children case
+				children.every((child) => isValidElement(child) && child.type === NavigationLink))
 		)
 	) {
 		throw new Error(
-			`NavigationLinksList must have one or more children of type NavigationLink.`
+			`<NavigationLinksList> expects one or more children of type <NavigationLink>. ` +
+				`You might have passed an invalid child, no children, or mixed children. ` +
+				`Ensure that all children are <NavigationLink> components.`
 		);
 	}
 

@@ -8,7 +8,6 @@ import { NavigationLink } from "./navigation-link";
 export type FooterNavigationLink = {
 	name: string;
 	href: string;
-	index: number;
 };
 
 type FooterNavigationComponents = {
@@ -18,13 +17,9 @@ type FooterNavigationComponents = {
 };
 
 type FooterNavigationProps = {
-	children: ReactElement<
-		typeof NavigationLinksGroup & {
-			children: ReactElement<
-				typeof NavigationLinksList & { children: ReactElement<typeof NavigationLink>[] }
-			>;
-		}
-	>;
+	children:
+		| ReactElement<typeof NavigationLinksGroup>
+		| ReactElement<typeof NavigationLinksGroup>[];
 };
 
 type FooterNavigation = FC<FooterNavigationProps> & FooterNavigationComponents;
@@ -32,12 +27,17 @@ type FooterNavigation = FC<FooterNavigationProps> & FooterNavigationComponents;
 export const FooterNavigation: FooterNavigation = ({ children }) => {
 	if (
 		!(
-			Array.isArray(children) &&
-			children.every((child) => isValidElement(child) && child.type === NavigationLinksGroup)
+			(isValidElement(children) && children.type === NavigationLinksGroup) || // Single child case
+			(Array.isArray(children) && // Multiple children case
+				children.every(
+					(child) => isValidElement(child) && child.type === NavigationLinksGroup
+				))
 		)
 	) {
 		throw new Error(
-			`FooterNavigation must have one or more children of type NavigationLinksGroup.`
+			`<FooterNavigation> expects one or more children of type <NavigationLinksGroup>. ` +
+				`You might have passed an invalid child or no children at all. ` +
+				`Make sure to use <NavigationLinksGroup> components as direct children.`
 		);
 	}
 
@@ -47,8 +47,3 @@ export const FooterNavigation: FooterNavigation = ({ children }) => {
 FooterNavigation.NavigationLinksGroup = NavigationLinksGroup;
 FooterNavigation.NavigationLinksList = NavigationLinksList;
 FooterNavigation.NavigationLink = NavigationLink;
-
-// TODO
-// TEST FooterNavigation Checks
-// ALSO CHECK REST COMPONENTS WHERE LinksList
-// WE SHOULD CHECK FOR ARRAY OF ELEMS
