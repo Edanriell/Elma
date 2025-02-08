@@ -49,8 +49,8 @@ const logotypeVariants = {
 	universal: {
 		large: () => (
 			<svg
-				width="1282"
-				height="312"
+				width="inherit"
+				height="inherit"
 				viewBox="0 0 1282 312"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
