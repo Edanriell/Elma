@@ -101,7 +101,7 @@ export const Footer: FC = () => {
 					className="tablet:mx-[auto] tablet:flex tablet:flex-row tablet:justify-center"
 					href="/"
 				>
-					<Logotype color="light" size="large" />
+					<Logotype color="universal" size="large" />
 				</Link>
 			</div>
 		</footer>
