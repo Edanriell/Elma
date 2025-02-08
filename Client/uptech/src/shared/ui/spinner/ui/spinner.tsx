@@ -3,33 +3,49 @@ import { type FC } from "react";
 type SpinnerProps = {
 	primaryColor?: string;
 	secondaryColor?: string;
+	primaryAnimationDuration?: string;
+	secondaryAnimationDuration?: string;
+	circleRadius?: number;
+	circleCount?: number;
+	ringRadius?: number;
+	width?: number;
+	height?: number;
+	viewBox?: string;
 };
 
 export const Spinner: FC<SpinnerProps> = ({
 	primaryColor = "rgba(255,255,255, 0.15)",
-	secondaryColor = "rgba(255,255,255, 1)"
+	secondaryColor = "rgba(255,255,255, 1)",
+	primaryAnimationDuration = "10s",
+	secondaryAnimationDuration = "1s",
+	circleRadius = 1.8,
+	circleCount = 8,
+	ringRadius = 9,
+	width = 32,
+	height = 32,
+	viewBox = "0 0 24 24"
 }) => {
+	const renderCircles = Array.from({ length: circleCount }, (_, i) => {
+		const angle = (2 * Math.PI * i) / circleCount;
+		const cx = 12 + ringRadius * Math.cos(angle);
+		const cy = 12 + ringRadius * Math.sin(angle);
+		return <circle key={i} cx={cx} cy={cy} r={circleRadius} fill={primaryColor} />;
+	});
+
 	return (
 		<div className="relative">
 			<svg
 				className="absolute top-0 left-0 z-[1]"
 				xmlns="http://www.w3.org/2000/svg"
-				width="32"
-				height="32"
-				viewBox="0 0 24 24"
+				width={width}
+				height={height}
+				viewBox={viewBox}
 			>
 				<g>
-					<circle cx="3" cy="12" r="1.8" fill={primaryColor} />
-					<circle cx="21" cy="12" r="1.8" fill={primaryColor} />
-					<circle cx="12" cy="21" r="1.8" fill={primaryColor} />
-					<circle cx="12" cy="3" r="1.8" fill={primaryColor} />
-					<circle cx="5.64" cy="5.64" r="1.8" fill={primaryColor} />
-					<circle cx="18.36" cy="18.36" r="1.8" fill={primaryColor} />
-					<circle cx="5.64" cy="18.36" r="1.8" fill={primaryColor} />
-					<circle cx="18.36" cy="5.64" r="1.8" fill={primaryColor} />
+					{renderCircles}
 					<animateTransform
 						attributeName="transform"
-						dur="10s"
+						dur={primaryAnimationDuration}
 						repeatCount="indefinite"
 						type="rotate"
 						values="360 12 12;0 12 12"
@@ -39,9 +55,9 @@ export const Spinner: FC<SpinnerProps> = ({
 			<svg
 				className="absolute top-0 left-0 z-[2]"
 				xmlns="http://www.w3.org/2000/svg"
-				width="32"
-				height="32"
-				viewBox="0 0 24 24"
+				width={width}
+				height={height}
+				viewBox={viewBox}
 			>
 				<path
 					fill={secondaryColor}
@@ -49,7 +65,7 @@ export const Spinner: FC<SpinnerProps> = ({
 				>
 					<animateTransform
 						attributeName="transform"
-						dur="1s"
+						dur={secondaryAnimationDuration}
 						repeatCount="indefinite"
 						type="rotate"
 						values="0 12 12;360 12 12"

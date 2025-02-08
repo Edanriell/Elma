@@ -1,7 +1,6 @@
 import { type FC } from "react";
 
 import { Button } from "@shared/ui/button/ui";
-import { Spinner } from "@shared/ui/spinner/ui";
 
 export const Newsletter: FC = () => {
 	return (
@@ -31,7 +30,7 @@ export const Newsletter: FC = () => {
 					className="tablet:min-w-[149rem]"
 					type="submit"
 				>
-					<Spinner />
+					Subscribe
 				</Button>
 			</form>
 		</div>
