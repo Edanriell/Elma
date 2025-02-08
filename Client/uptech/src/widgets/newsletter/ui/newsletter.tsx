@@ -1,4 +1,4 @@
-import React, { type FC } from "react";
+import { type FC } from "react";
 
 import { Button } from "@shared/ui/button/ui";
 
@@ -27,6 +27,7 @@ export const Newsletter: FC = () => {
 					secondaryColor="bg-white-50"
 					secondaryComponentClasses="text-shark-950"
 					transitionOptions={{ type: "spring", duration: 0.65, bounce: 0 }}
+					className="tablet:min-w-[149rem]"
 					type="submit"
 				>
 					Subscribe
