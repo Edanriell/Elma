@@ -1,13 +1,12 @@
 import React, { FC } from "react";
-import Link from "next/link";
 
 import {
 	FooterNavigation,
 	type FooterNavigationLink
 } from "@widgets/navigation/ui/footer-navigation/ui";
-
-import { Logotype } from "@shared/ui/logotype/ui";
 import { Button } from "@shared/ui/button/ui";
+
+import { FooterLogotype } from "./footer-logotype";
 
 type FooterNavigationLinksGroups = "Pages" | "Support" | "Social Media";
 
@@ -97,12 +96,7 @@ export const Footer: FC = () => {
 						)}
 					</FooterNavigation>
 				</div>
-				<Link
-					className="tablet:mx-[auto] tablet:flex tablet:flex-row tablet:justify-center"
-					href="/"
-				>
-					<Logotype color="light" size="large" />
-				</Link>
+				<FooterLogotype />
 			</div>
 		</footer>
 	);
