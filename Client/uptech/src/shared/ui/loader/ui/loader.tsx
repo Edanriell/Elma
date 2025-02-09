@@ -2,7 +2,19 @@
 
 import { type FC, useEffect, useState } from "react";
 
-export const Loader: FC = () => {
+type LoaderProps = {
+	width?: string;
+	height?: string;
+	primaryColor?: string;
+	secondaryColor?: string;
+};
+
+export const Loader: FC<LoaderProps> = ({
+	width = "353rem",
+	height = "312rem",
+	primaryColor = "#1f1f1f",
+	secondaryColor = "#ef233c"
+}) => {
 	const [isDark, setIsDark] = useState(false);
 	const [animationKey, setAnimationKey] = useState(0);
 
@@ -10,21 +22,22 @@ export const Loader: FC = () => {
 		const interval = setInterval(() => {
 			setIsDark((prev) => !prev);
 			setAnimationKey((prev) => prev + 1);
-		}, 3000);
+		}, 1000);
 
 		return () => clearInterval(interval);
 	}, []);
 
 	return (
-		<div className="relative w-[353rem] h-[312rem]">
+		<div style={{ width: width, height: height }} className="relative">
 			<div
 				key={`dark-${animationKey}`}
 				className={`absolute inset-0 ${
-					isDark ? "animate-dark-layer-slide-in" : "animate-dark-layer-slide-out"
+					isDark ? "animate-primary-layer-slide-in" : "animate-primary-layer-slide-out"
 				}`}
 			>
 				<svg
-					className="text-shark-950 block"
+					style={{ color: primaryColor }}
+					className="block"
 					viewBox="0 0 353 312"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
@@ -40,11 +53,14 @@ export const Loader: FC = () => {
 			<div
 				key={`light-${animationKey}`}
 				className={`absolute inset-0 ${
-					isDark ? "animate-light-layer-slide-out" : "animate-light-layer-slide-in"
+					isDark
+						? "animate-secondary-layer-slide-out"
+						: "animate-secondary-layer-slide-in"
 				}`}
 			>
 				<svg
-					className="text-alizarin-crimson-600 block"
+					style={{ color: secondaryColor }}
+					className="block"
 					viewBox="0 0 353 312"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
