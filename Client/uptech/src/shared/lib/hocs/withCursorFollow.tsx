@@ -3,9 +3,7 @@
 import { ComponentType, useEffect, useRef, useState } from "react";
 import { motion, useSpring } from "motion/react";
 
-function clamp(value: number, min: number, max: number): number {
-	return Math.min(Math.max(value, min), max);
-}
+import { clamp } from "../functions";
 
 type WithCursorFollowProps = {
 	width: string;
@@ -18,10 +16,10 @@ type WithCursorFollowProps = {
 	alwaysHover?: boolean;
 };
 
-export function withCursorFollow<P>(
-	Component: ComponentType<P>
-): ComponentType<P & WithCursorFollowProps> {
-	return ({
+export const withCursorFollow = <T extends object>(
+	Component: ComponentType<T>
+): ComponentType<T & WithCursorFollowProps> => {
+	const ComponentWithCursorFollow = ({
 		width,
 		height,
 		clipPath,
@@ -31,7 +29,7 @@ export function withCursorFollow<P>(
 		customGlow,
 		alwaysHover,
 		...props
-	}: P & WithCursorFollowProps) => {
+	}: WithCursorFollowProps & T) => {
 		const containerRef = useRef<HTMLDivElement | null>(null);
 		const [isHovering, setIsHovering] = useState<boolean>(alwaysHover ?? false);
 
@@ -56,7 +54,6 @@ export function withCursorFollow<P>(
 			if (!containerRef.current) return;
 
 			const rect = containerRef.current.getBoundingClientRect();
-
 			let newX = e.clientX - rect.left;
 			let newY = e.clientY - rect.top;
 
@@ -76,7 +73,6 @@ export function withCursorFollow<P>(
 		const handleMouseLeave = () => {
 			if (!alwaysHover) {
 				setIsHovering(false);
-
 				// Return glow back to center on mouse leave
 				glowX.set(center.x);
 				glowY.set(center.y);
@@ -85,7 +81,9 @@ export function withCursorFollow<P>(
 
 		const glowBackground =
 			customGlow ??
-			`radial-gradient(circle, rgba(${glowColor}, ${glowIntensity}) 0%, rgba(${glowColor}, ${glowIntensity / 2}) 60%, rgba(${glowColor}, 0) 100%)`;
+			`radial-gradient(circle, rgba(${glowColor}, ${glowIntensity}) 0%, rgba(${glowColor}, ${
+				glowIntensity / 2
+			}) 60%, rgba(${glowColor}, 0) 100%)`;
 
 		return (
 			<div
@@ -119,8 +117,14 @@ export function withCursorFollow<P>(
 						zIndex: 5
 					}}
 				/>
-				<Component width={width} height={height} {...(props as P)} />
+				<Component width={width} height={height} {...(props as T)} />
 			</div>
 		);
 	};
-}
+
+	ComponentWithCursorFollow.displayName = `withCursorFollow(${
+		Component.displayName || Component.name || "Component"
+	})`;
+
+	return ComponentWithCursorFollow;
+};
