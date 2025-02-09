@@ -2,8 +2,6 @@
 
 import { type FC, useEffect, useState } from "react";
 
-import "./styles.css";
-
 export const Loader: FC = () => {
 	const [isDark, setIsDark] = useState(false);
 	const [animationKey, setAnimationKey] = useState(0);
@@ -21,8 +19,9 @@ export const Loader: FC = () => {
 		<div className="relative w-[353rem] h-[312rem]">
 			<div
 				key={`dark-${animationKey}`}
-				style={{ zIndex: 2 }}
-				className={`absolute inset-0 ${isDark ? "dark-in" : "dark-out"}`}
+				className={`absolute inset-0 ${
+					isDark ? "animate-dark-layer-slide-in" : "animate-dark-layer-slide-out"
+				}`}
 			>
 				<svg
 					className="text-shark-950 block"
@@ -40,8 +39,9 @@ export const Loader: FC = () => {
 			</div>
 			<div
 				key={`light-${animationKey}`}
-				style={{ zIndex: 1 }}
-				className={`absolute inset-0 ${isDark ? "light-out" : "light-in"}`}
+				className={`absolute inset-0 ${
+					isDark ? "animate-light-layer-slide-out" : "animate-light-layer-slide-in"
+				}`}
 			>
 				<svg
 					className="text-alizarin-crimson-600 block"
