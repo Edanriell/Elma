@@ -99,7 +99,7 @@ export const with3D = <P extends object>(
 								position: "absolute"
 							}}
 						>
-							<Component {...(rest as P)} />
+							<Component width={width} height={height} {...(rest as P)} />
 						</motion.div>
 					</div>
 				</motion.div>

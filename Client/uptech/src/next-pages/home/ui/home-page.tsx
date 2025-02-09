@@ -5,8 +5,7 @@ import { FC } from "react";
 import { Loader } from "@shared/ui/loader/ui";
 import { with3D, withCursorFollow } from "@shared/lib/hocs";
 
-const ThreeDLoaderWithCursorFollow = withCursorFollow(with3D(Loader));
-
+const ThreeDLoaderWithCursorFollow = with3D(withCursorFollow(Loader));
 export const HomePage: FC = () => {
 	return (
 		<main className="relative z-[20]">
