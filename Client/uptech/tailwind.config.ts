@@ -11,6 +11,30 @@ export default {
 	],
 	theme: {
 		extend: {
+			keyframes: {
+				"primary-layer-slide-in": {
+					"0%": { clipPath: "inset(0 0 100% 0)" },
+					"100%": { clipPath: "inset(0 0 0 0)" }
+				},
+				"primary-layer-slide-out": {
+					"0%": { clipPath: "inset(0 0 0 0)" },
+					"100%": { clipPath: "inset(100% 0 0 0)" }
+				},
+				"secondary-layer-slide-in": {
+					"0%": { clipPath: "inset(0 0 100% 0)" },
+					"100%": { clipPath: "inset(0 0 0 0)" }
+				},
+				"secondary-layer-slide-out": {
+					"0%": { clipPath: "inset(0 0 0 0)" },
+					"100%": { clipPath: "inset(100% 0 0 0)" }
+				}
+			},
+			animation: {
+				"primary-layer-slide-in": "primary-layer-slide-in 1s forwards",
+				"primary-layer-slide-out": "primary-layer-slide-out 1s forwards",
+				"secondary-layer-slide-in": "secondary-layer-slide-in 1s forwards",
+				"secondary-layer-slide-out": "secondary-layer-slide-out 1s forwards"
+			},
 			backgroundImage: {
 				"gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
 				"gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))"
