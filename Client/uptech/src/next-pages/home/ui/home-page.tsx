@@ -16,7 +16,7 @@ export const HomePage: FC = () => {
 			<ThreeDLoaderWithCursorFollow
 				width="353rem"
 				height="312rem"
-				glowSize={280}
+				glowSize={200}
 				clipPath={loaderClipPath}
 				alwaysHover={false}
 			/>

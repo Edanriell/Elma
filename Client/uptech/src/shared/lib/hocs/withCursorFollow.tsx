@@ -14,6 +14,7 @@ type WithCursorFollowProps = {
 	glowColor?: string;
 	glowIntensity?: number;
 	clipPath?: string;
+	customGlow?: string;
 	alwaysHover?: boolean;
 };
 
@@ -27,6 +28,7 @@ export function withCursorFollow<P>(
 		glowSize = 200,
 		glowIntensity = 0.8,
 		glowColor = "255,255,255",
+		customGlow,
 		alwaysHover,
 		...props
 	}: P & WithCursorFollowProps) => {
@@ -74,11 +76,16 @@ export function withCursorFollow<P>(
 		const handleMouseLeave = () => {
 			if (!alwaysHover) {
 				setIsHovering(false);
+
 				// Return glow back to center on mouse leave
 				glowX.set(center.x);
 				glowY.set(center.y);
 			}
 		};
+
+		const glowBackground =
+			customGlow ??
+			`radial-gradient(circle, rgba(${glowColor}, ${glowIntensity}) 0%, rgba(${glowColor}, ${glowIntensity / 2}) 60%, rgba(${glowColor}, 0) 100%)`;
 
 		return (
 			<div
@@ -106,8 +113,8 @@ export function withCursorFollow<P>(
 						width: `${glowSize}px`,
 						height: `${glowSize}px`,
 						borderRadius: "50%",
-						background: `radial-gradient(circle, rgba(${glowColor},${glowIntensity}) 0%, rgba(${glowColor},0) 80%)`,
-						filter: "blur(22px)",
+						background: glowBackground,
+						filter: "blur(30px)",
 						pointerEvents: "none",
 						zIndex: 5
 					}}
