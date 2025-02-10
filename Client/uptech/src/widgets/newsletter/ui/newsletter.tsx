@@ -14,8 +14,8 @@ const newsletterFormSchema = yup
 	.object({
 		email: yup
 			.string()
-			.matches(emailRegex, "Please provide a valid email address")
-			.required("Email address is required")
+			.required("*Email address is required")
+			.matches(emailRegex, "*Please provide a valid email address")
 	})
 	.required();
 
@@ -56,7 +56,7 @@ export const Newsletter: FC = () => {
 							<motion.p
 								initial={{ opacity: 0, x: 20, filter: "blur(4rem)" }}
 								animate={{ opacity: 1, x: 0, filter: "blur(0rem)" }}
-								exit={{ opacity: 0, x: -20, filter: "blur(4rem)" }}
+								exit={{ opacity: 0, x: 20, filter: "blur(4rem)" }}
 								className="text-[16rem] font-medium leading-[150%] text-alizarin-crimson-500 absolute top-[-30rem] tablet:top-[unset] tablet:bottom-[-30rem] left-[24rem]"
 							>
 								{errors.email?.message}
