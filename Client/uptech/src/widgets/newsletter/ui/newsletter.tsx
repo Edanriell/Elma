@@ -8,9 +8,14 @@ import * as yup from "yup";
 
 import { Button } from "@shared/ui/button/ui";
 
+const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z]+(\.[A-Za-z]+)*\.[A-Za-z]{2,}$/;
+
 const newsletterFormSchema = yup
 	.object({
-		email: yup.string().email().required()
+		email: yup
+			.string()
+			.matches(emailRegex, "Please provide a valid email address")
+			.required("Email address is required")
 	})
 	.required();
 
@@ -49,10 +54,10 @@ export const Newsletter: FC = () => {
 					<AnimatePresence>
 						{errors.email && (
 							<motion.p
-								initial={{ opacity: 0, x: 20 }}
-								exit={{ opacity: 0, x: -20 }}
-								animate={{ opacity: 1, x: 0 }}
-								className="text-alizarin-crimson-500"
+								initial={{ opacity: 0, x: 20, filter: "blur(4rem)" }}
+								animate={{ opacity: 1, x: 0, filter: "blur(0rem)" }}
+								exit={{ opacity: 0, x: -20, filter: "blur(4rem)" }}
+								className="text-[16rem] font-medium leading-[150%] text-alizarin-crimson-500 absolute top-[-30rem] tablet:top-[unset] tablet:bottom-[-30rem] left-[24rem]"
 							>
 								{errors.email?.message}
 							</motion.p>
